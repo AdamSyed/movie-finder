@@ -10,3 +10,4 @@ In this project we will use a branch method of coding to track our work and to s
 3. Movie Selection 
 4. Group Management
  
+To use this application, please go to this link: [link will be added in the frist sprint]
