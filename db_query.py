@@ -10,8 +10,9 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
-sql = "DROP TABLE testtbl;"
+mycursor.execute("show tables;")
 
-mycursor.execute(sql)
+myresult = mycursor.fetchall()
 
-mydb.commit()
+for x in myresult:
+  print(x)
