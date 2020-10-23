@@ -20,8 +20,9 @@ ma = Marshmallow(application)
 @application.route('/create-user/<id>', methods=['GET'])
 def create_user(id):
     # Actions
-    return 3
+    return {'ans':3}
 
 # Run server
-if __name__ = '__main__':
-    application.run(host='0.0.0.0')
+if __name__ == '__main__':
+    # application.run(host='0.0.0.0') 
+    application.run(debug=True)
