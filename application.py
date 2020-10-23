@@ -6,7 +6,7 @@ from flask_marshmallow import Marshmallow
 application = Flask(__name__)
 
 # Database
-application.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:msci436project@uni-dss.cmuqyhsxn149.us-east-2.rds.amazonaws.com:3306/uni_dss'
+application.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:msci342!@moviedatabase.cabnbngmbcmp.ca-central-1.rds.amazonaws.com:3306/moviedb'
 application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # To prevent any complaints in console
 
 # Initialize DB
@@ -17,8 +17,8 @@ ma = Marshmallow(application)
 
 # Classes, constructors, schemas & initiate
 
-@application.route('/create-user', methods=['POST'])
-def create_user():
+@application.route('/create-user/<id>', methods=['GET'])
+def create_user(id):
     # Actions
     return 3
 
