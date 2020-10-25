@@ -18,3 +18,10 @@ async function login(){
         window.location.replace('http://www.schoolfit.me.s3-website-us-east-1.amazonaws.com/results.html?id='+json.response);
     }
 }
+
+async function returnMovie() {
+    //this function will return the movie
+    //const api_endpoint = 'rating';
+
+    //json.response == 'MovieName'
+}
