@@ -1,7 +1,6 @@
-from flask import Flask
+from flask import Flask,request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-import json
 
 # Initiate application
 application = Flask(__name__)
@@ -159,17 +158,21 @@ def check_login_creds():
 
     return jsonify(output)
 
-@application.route('/rating', methods = ['GET'])
-def movie_option():
+@application.route('/rating/<userID>', methods = ['GET'])
+def movie_option(userID):
     #this endpoint will take the user id and look through all the movies in the database that do not have a Yes/No choice made already by the user
     #it will then output one of those undecided options for the movie
-    #user = User.query.get(userID)
+
+    #code to unstub once schema created
+    #movieInfo = UserRatesMovie.filter_by(UserID = UserID, isLiked=NULL).first()
+    #movieChoice = Movie.query.get(movieInfo.movieID)
+    ##output = {"response": str.(Movie.name)
+    #return jsonify (movieChoice)
 
     #stubbed output
-    output = {"response": "TestMovie"}
-
-    return output
-
+    movieChoice = {"movie": "TestMovie"}
+    #movieChoice = Movie.query.get(1)
+    return jsonify (movieChoice)
 
 # Run server
 if __name__ == '__main__':
