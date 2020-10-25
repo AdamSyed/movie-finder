@@ -1,6 +1,7 @@
 from flask import Flask, requests
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+import json
 
 # Initiate application
 application = Flask(__name__)
@@ -141,7 +142,7 @@ movies_schema = MovieSchema(many=True)
 
 @application.route('/', methods=['GET'])
 def default():
-    return {'Does this work?':'YES!'}
+    return {'Does this work?':'Yes'}
 
 # ENDPOINT - Login
 @application.route('/login', methods=['POST'])
@@ -176,7 +177,22 @@ def create():
 
     return jsonify(output)
 
+@application.route('/rating', methods = ['GET'])
+def movie_option():
+    #this endpoint will take the user id and look through all the movies in the database that do not have a Yes/No choice made already by the user
+    #it will then output one of those undecided options for the movie
+    #user = User.query.get(userID)
+
+    #stubbed output
+    output = {"response": "TestMovie"}
+
+    return output
+
+
+
 # Run server
 if __name__ == '__main__':
     application.run(host='0.0.0.0') 
     #application.run(debug=True)
+
+

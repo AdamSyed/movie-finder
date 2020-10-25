@@ -19,6 +19,7 @@ async function login(){
     }
 }
 
+
 function create(){
         window.location.replace('https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/create_user.html')
 }
@@ -43,3 +44,11 @@ async function create_user(){
     console.log(redirect)
     window.location.replace(redirect);
 }
+
+async function returnMovie() {
+    //this function will return the movie
+    //const api_endpoint = 'rating';
+
+    //json.response == 'MovieName'
+}
+
