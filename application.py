@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+import json
 
 # Initiate application
 application = Flask(__name__)
@@ -158,7 +159,19 @@ def check_login_creds():
 
     return jsonify(output)
 
+@application.route('/rating', methods = ['GET'])
+def movie_option():
+    #this endpoint will take the user id and look through all the movies in the database that do not have a Yes/No choice made already by the user
+    #it will then output one of those undecided options for the movie
+    #user = User.query.get(userID)
+
+    #stubbed output
+    output = {"response": "TestMovie"}
+
+    return output
+
+
 # Run server
 if __name__ == '__main__':
-    application.run(host='0.0.0.0') 
-    # application.run(debug=True)
+    #application.run(host='0.0.0.0') 
+     application.run(debug=True)
