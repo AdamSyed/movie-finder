@@ -21,15 +21,15 @@ async function login(){
 
 async function returnMovie() {
     //this function will return the movie
-    const RETURN_MOVIE_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/rating';   
+    const RETURN_MOVIE_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/rating/';   
 
-    //var vars = {};
-    //var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-    //    vars[key] = value;
-    //});
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
 
-    //const response = await fetch(RETURN_MOVIE_URL.concat(vars), {
-    const response = await fetch(RETURN_MOVIE_URL.concat(), {
+    const response = await fetch(RETURN_MOVIE_URL.concat(vars), {
+    //const response = await fetch(RETURN_MOVIE_URL.concat(), {
     //const response = await fetch(RETURN_MOVIE_URL, {
         method: 'GET'
     });

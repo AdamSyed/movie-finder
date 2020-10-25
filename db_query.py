@@ -10,7 +10,7 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
-mycursor.execute("show tables;")
+mycursor.execute("show tables")
 
 myresult = mycursor.fetchall()
 

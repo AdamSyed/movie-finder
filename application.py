@@ -23,6 +23,7 @@ class User(db.Model):
     password = db.Column(db.String(200), nullable=False)
     firstname = db.Column(db.String(100), nullable=False)
     lastname = db.Column(db.String(100), nullable=False)
+    moviesRated = db.relationship('User_Rates_Movie', backref='user', lazy=True)
 
     def __init__(self,userID,email,password,firstname,lastname):
         self.userID = userID
@@ -37,7 +38,7 @@ class UserSchema(ma.Schema):
         strict = True
         fields = ('userID','email','password','firstname','lastname')
 
-# Initiate Student Schema
+# Initiate User Schema
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 
@@ -63,7 +64,7 @@ actor_schema = ActorSchema()
 actors_schema = ActorSchema(many=True)
 
 # Group Class
-class Group(db.Model):
+class Grp(db.Model):
     groupID = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     blacklist_threshold = db.Column(db.Integer)
@@ -76,14 +77,14 @@ class Group(db.Model):
         self.max_size = max_size
 
 # Group Schema - for marshmallow
-class GroupSchema(ma.Schema):
+class GrpSchema(ma.Schema):
     class Meta: #all the variables you want to see
         strict = True
         fields = ('groupID','name','blacklist_threshold','max_size')
 
 # Initiate Group Schema
-group_schema = GroupSchema()
-groups_schema = GroupSchema(many=True)
+group_schema = GrpSchema()
+groups_schema = GrpSchema(many=True)
 
 # Movie Class
 class Movie(db.Model):
@@ -95,6 +96,7 @@ class Movie(db.Model):
     imdb_rating = db.Column(db.Float)
     photo = db.Column(db.String(500))
     imdb_link = db.Column(db.String(500))
+    moviesRated = db.relationship('User_Rates_Movie', backref='movie', lazy=True)
 
     def __init__(self,movieID,name,year,director,genre,imdb_rating,photo,imdb_link):
         self.movieID = movieID
@@ -115,6 +117,27 @@ class MovieSchema(ma.Schema):
 # Initiate Movie Schema
 movie_schema = MovieSchema()
 movies_schema = MovieSchema(many=True)
+
+
+class User_Rates_Movie(db.Model): ##
+    movieID = db.Column (db.Integer, db.ForeignKey(Movie.movieID),primary_key=True)
+    userID = db.Column (db.Integer, db.ForeignKey(User.userID),primary_key=True)
+    isLIked = db.Column (db.Boolean, nullable = False)
+
+    def __init__(self,movieID,userID,isLiked):
+        self.movieID = movieID
+        self.userID = userID
+        self.isLikeds = isLiked
+
+# User_rates_Movie Schema - for marshmallow
+class User_Rates_MovieSchema(ma.Schema):
+    class Meta: #all the variables you want to see
+        strict = True
+        fields = ('movieID','userID','isLiked')
+
+# Initiate User_Rates_Movie Schema
+user_rates_movie_schema = User_Rates_MovieSchema()
+user_rates_movies_schema = User_Rates_MovieSchema(many=True)
 
 # # User In Group Class
 # class UserGroup(db.Model):
@@ -164,15 +187,18 @@ def movie_option(userID):
     #it will then output one of those undecided options for the movie
 
     #code to unstub once schema created
-    #movieInfo = UserRatesMovie.filter_by(UserID = UserID, isLiked=NULL).first()
+    #movieInfo = ratings.filter_by(UserID = UserID, isLiked=NULL).first()
     #movieChoice = Movie.query.get(movieInfo.movieID)
-    ##output = {"response": str.(Movie.name)
+    ##########output = {"response": str.(Movie.name)}
     #return jsonify (movieChoice)
-
+    m = User.query.filter_by(userID=1).first()
+    results = m.moviesRated
+    ####movieInfo = m.users
     #stubbed output
-    movieChoice = {"movie": "TestMovie"}
-    #movieChoice = Movie.query.get(1)
-    return jsonify (movieChoice)
+    #movieChoice = {"movie": "TestMovie"}
+    ###movieChoice = Movie.query.get(movieInfo.movieID)
+    ###return jsonify (movieChoice)
+    return jsonify({"Response": results})
 
 # Run server
 if __name__ == '__main__':
