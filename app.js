@@ -19,9 +19,36 @@ async function login(){
     }
 }
 
+
+function create(){
+        window.location.replace('https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/create_user.html')
+}
+
+async function create_user(){
+    const api_endpoint = 'create';
+    var first_name = document.info.first_name.value;
+    var last_name = document.info.last_name.value;
+    var email = document.info.email.value;
+    var password = document.info.password.value;
+    
+    const response = await fetch(API_URL.concat(api_endpoint), {
+        method: 'PUT',
+        headers: {
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify({first_name:first_name,last_name:last_name,email:email,password:password})
+    });
+    const json = await response.json();
+    console.log(json.response);
+    var redirect = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/create_user.html?luserid=' + json.response;
+    console.log(redirect)
+    window.location.replace(redirect);
+}
+
 async function returnMovie() {
     //this function will return the movie
     //const api_endpoint = 'rating';
 
     //json.response == 'MovieName'
 }
+

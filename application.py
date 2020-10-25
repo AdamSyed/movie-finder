@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, requests
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import json
@@ -159,6 +159,24 @@ def check_login_creds():
 
     return jsonify(output)
 
+# ENDPOINT - Create user account
+@application.route('/create',methods=['PUT'])
+def create():
+    email = request.json['email']
+    first_name = request.json['first_name']
+    last_name = request.json['last_name']
+    password = request.json['password']
+    
+    user = User(email,first_name,last_name,password)
+
+    db.session.add(user)
+    db.session.commit()
+
+    user_id = User.query.filter_by(email = email).first().user_ID
+    output = {'response':user_id}
+
+    return jsonify(output)
+
 @application.route('/rating', methods = ['GET'])
 def movie_option():
     #this endpoint will take the user id and look through all the movies in the database that do not have a Yes/No choice made already by the user
@@ -171,8 +189,10 @@ def movie_option():
     return output
 
 
+
 # Run server
 if __name__ == '__main__':
     application.run(host='0.0.0.0') 
-     #application.run(debug=True)
+    #application.run(debug=True)
+
 
