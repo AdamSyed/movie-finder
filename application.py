@@ -142,7 +142,7 @@ movies_schema = MovieSchema(many=True)
 
 @application.route('/', methods=['GET'])
 def default():
-    return {'Does this work?':'YES!'}
+    return {'Does this work?':'Mozys'}
 
 # ENDPOINT - Login
 @application.route('/login', methods=['POST'])
