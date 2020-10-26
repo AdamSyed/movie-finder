@@ -253,7 +253,7 @@ def movie_option(userID):
     #this endpoint will take the user id and look through all the movies in the database that do not have a Yes/No choice made already by the user
     #it will then output one of those undecided options for the movie
 
-    #first query to get the user that is currenlty logged in
+    #first query to get the user that is currently logged in
     m = User.query.filter_by(userID=userID).first()
     
     #this needs to be expanded in future sprints
@@ -274,7 +274,7 @@ def movie_option(userID):
    
     return jsonify(fullResults)
 
-# ENDPOINT - User rating
+# ENDPOINT - User rating yes
 @application.route('/rate-yes', methods = ['PUT'])
 def rate_yes():
     movieID = request.json['movieID']
@@ -284,6 +284,22 @@ def rate_yes():
 
     db.session.add(user_rates_movie_schema)
     db.session.commit()
+    # call method to display movie, will display a new unseen movie
+
+    return ({'response':'Good'})
+    # this method will insert into the user_rates_movie table 
+
+# ENDPOINT - User rating no
+@application.route('/rate-no', methods = ['PUT'])
+def rate_yes():
+    movieID = request.json['movieID']
+    userID = request.json['userID']
+    
+    user_rates_movie_schema = User_Rates_Movie(movieID,userID,False)
+
+    db.session.add(user_rates_movie_schema)
+    db.session.commit()
+    # call method to display movie, will display a new unseen movie
 
     return ({'response':'Good'})
     # this method will insert into the user_rates_movie table 
