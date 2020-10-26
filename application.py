@@ -1,6 +1,7 @@
-from flask import Flask
+from flask import Flask, requests
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+import json
 
 # Initiate application
 application = Flask(__name__)
@@ -121,8 +122,7 @@ movies_schema = MovieSchema(many=True)
 
 @application.route('/', methods=['GET'])
 def default():
-    u = User.query.filter_by(userID=1).first()
-    return {'Does this work?':u.userID}
+    return {'Does this work?':'Yes'}
 
 # ENDPOINT - Login
 @application.route('/login', methods=['POST'])
@@ -138,6 +138,52 @@ def check_login_creds():
         output = {"response": "Invalid credentials."}
 
     return jsonify(output)
+
+
+# ENDPOINT - Create user account
+@application.route('/create',methods=['PUT'])
+def create():
+    email = request.json['email']
+    first_name = request.json['first_name']
+    last_name = request.json['last_name']
+    password = request.json['password']
+    
+    user = User(email,first_name,last_name,password)
+
+    db.session.add(user)
+    db.session.commit()
+
+    user_id = User.query.filter_by(email = email).first().user_ID
+    output = {'response':user_id}
+
+    return jsonify(output)
+
+@application.route('/rating', methods = ['GET'])
+def movie_option():
+    #this endpoint will take the user id and look through all the movies in the database that do not have a Yes/No choice made already by the user
+    #it will then output one of those undecided options for the movie
+    #user = User.query.get(userID)
+
+    #stubbed output
+    output = {"response": "TestMovie"}
+
+    return output
+
+# ENDPOINT - User rating
+@application.route('/rate-yes', methods = ['PUT'])
+def rate_yes():
+    movieID = request.json['movieID']
+    userID = request.json['userID']
+    
+    user_rates_movie_schema = User_Rates_Movie(movieID,userID,True)
+
+    db.session.add(user_rates_movie_schema)
+    db.session.commit()
+
+    return ({'response':'Good'})
+    # this method will insert into the user_rates_movie table 
+
+
 
 # Run server
 if __name__ == '__main__':
