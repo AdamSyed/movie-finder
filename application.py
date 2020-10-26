@@ -24,7 +24,6 @@ class User(db.Model):
     firstname = db.Column(db.String(100), nullable=False)
     lastname = db.Column(db.String(100), nullable=False)
     moviesRated = db.relationship('Userratesmovie', backref='user', lazy=True)
-    #moviesRated = db.relationship("Movie", secondary = "ratings")
 
     def __init__(self,userID,email,password,firstname,lastname):
         self.userID = userID
@@ -98,7 +97,6 @@ class Movie(db.Model):
     photo = db.Column(db.String(500))
     imdb_link = db.Column(db.String(500))
     moviesRated = db.relationship('Userratesmovie', backref='movie', lazy=True)
-    #moviesRated = db.relationship("User", secondary = "ratings")
 
     def __init__(self,movieID,name,year,director,genre,imdb_rating,photo,imdb_link):
         self.movieID = movieID
@@ -125,9 +123,6 @@ class Userratesmovie(db.Model): ##
     movieID = db.Column (db.Integer, db.ForeignKey(Movie.movieID),primary_key=True)
     userID = db.Column (db.Integer, db.ForeignKey(User.userID),primary_key=True)
     isLiked = db.Column (db.Boolean, nullable = False)
-
-    #user = db.relationship(User, backref=db.backref("ratings", cascade="all, delete-orphan"))
-    #movie = db.relationship (Movie, backref=db.backref("ratings", cascade="all, delete-orphan"))
 
     def __init__(self,movieID,userID,isLiked):
         self.movieID = movieID
