@@ -19,6 +19,7 @@ async function login(){
     }
 }
 
+
 //function to pass info to backend when user clicks they like the displayed movie
 async function clickedYes() {
     const api_endpoint = 'rate-yes';
@@ -45,6 +46,32 @@ async function clickedYes() {
     } else {
         window.location.replace('http://www.schoolfit.me.s3-website-us-east-1.amazonaws.com/results.html?id=' + json.response);
     }*/
+
+
+function create(){
+        window.location.replace('https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/create_user.html')
+}
+
+async function create_user(){
+    const api_endpoint = 'create';
+    var first_name = document.info.first_name.value;
+    var last_name = document.info.last_name.value;
+    var email = document.info.email.value;
+    var password = document.info.password.value;
+    
+    const response = await fetch(API_URL.concat(api_endpoint), {
+        method: 'PUT',
+        headers: {
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify({first_name:first_name,last_name:last_name,email:email,password:password})
+    });
+    const json = await response.json();
+    console.log(json.response);
+    var redirect = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/create_user.html?luserid=' + json.response;
+    console.log(redirect)
+    window.location.replace(redirect);
+
 }
 
 async function returnMovie() {
@@ -53,3 +80,4 @@ async function returnMovie() {
 
     //json.response == 'MovieName'
 }
+
