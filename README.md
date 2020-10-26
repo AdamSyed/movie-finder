@@ -11,4 +11,4 @@ In this project we will use a branch method of coding to track our work and to s
 4. jaad
 5. adam
  
-To use this application, please go to this link: [link will be added in the frist sprint]
+To use this application, please go to this link: [link will be added in the first sprint]
