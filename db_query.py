@@ -10,7 +10,7 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
-mycursor.execute("select * from userratesmovie")
+mycursor.execute("select * from user")
 
 myresult = mycursor.fetchall()
 

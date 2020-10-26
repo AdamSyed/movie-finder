@@ -10,9 +10,11 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
-#sql = "Insert into movie (name, year, director, imdb_rating, genre) values ('The Proposal','2009','Anne Fletcher',6.7, 'Romance'),('Inception',2010,'Christopher Nolan', 8.8, 'Action'),('Knives Out',2019,'Rian Johnson', 7.9, 'Comedy')"
-sql = "Insert into userratesmovie (movieID, userID, isLiked) values (8,1,False)"
-#sql= "Insert into genres(genre) values ('Action'),('Adventure'),('Animation'),('Biography'),('Comedy'),('Crime'),('Documentary'),('Drama'),('Family'),('Fantasy'),('Film Noir'),('History'),('HorrorMusic'),('Musical'),('Mystery'),('Romance'),('Sci-Fi'),('Short Film'),('Sport'),('Superhero'),('Thriller'),('War'),('Western')"
+sql = "CREATE TABLE usermovieblacklistvote (movieID INT NOT NULL,userID INT NOT NULL,groupID INT NOT NULL,blacklist_vote BOOLEAN,PRIMARY KEY (movieID,userID,groupID),FOREIGN KEY (movieID) REFERENCES userratesmovie(movieID),FOREIGN KEY (groupID) REFERENCES useringroup(groupID),FOREIGN KEY (userID) REFERENCES useringroup(userID));"
+# sql = "drop table actor_in_movie;"
+# sql = "drop table user_movie_blacklist_vote;"
+
+
 mycursor.execute(sql)
 
 mydb.commit()
