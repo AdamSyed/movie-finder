@@ -63,7 +63,7 @@ actor_schema = ActorSchema()
 actors_schema = ActorSchema(many=True)
 
 # Group Class
-class Group(db.Model):
+class Grp(db.Model):
     groupID = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     blacklist_threshold = db.Column(db.Integer)
@@ -76,14 +76,14 @@ class Group(db.Model):
         self.max_size = max_size
 
 # Group Schema - for marshmallow
-class GroupSchema(ma.Schema):
+class GrpSchema(ma.Schema):
     class Meta: #all the variables you want to see
         strict = True
         fields = ('groupID','name','blacklist_threshold','max_size')
 
 # Initiate Group Schema
-group_schema = GroupSchema()
-groups_schema = GroupSchema(many=True)
+grp_schema = GrpSchema()
+grps_schema = GrpSchema(many=True)
 
 # Movie Class
 class Movie(db.Model):
@@ -116,32 +116,13 @@ class MovieSchema(ma.Schema):
 movie_schema = MovieSchema()
 movies_schema = MovieSchema(many=True)
 
-# # User In Group Class
-# class UserGroup(db.Model):
-#     groupID = db.Column(db.Integer, primary_key=True)
-#     userID = db.Column(db.String(200), nullable=False)
-#     joined_at = db.Column(db.Integer)
-#     left_at = db.Column(db.String(200))
+# class user_rates_movie(db.Model):
 
-#     def __init__(self,movieID,name,year,director):
-#         self.movieID = movieID
-#         self.name = name
-#         self.year = year
-#         self.director = director
-
-# # UserGroup Schema - for marshmallow
-# class UserGroupSchema(ma.Schema):
-#     class Meta: #all the variables you want to see
-#         strict = True
-#         fields = ('movieID','name','year','director')
-
-# # Initiate Movie Schema
-# usergroup_schema = UserGroupSchema()
-# usergroups_schema = UserGroupSchema(many=True)
 
 @application.route('/', methods=['GET'])
 def default():
-    return {'Does this work?':'YES!'}
+    u = User.query.filter_by(userID=1).first()
+    return {'Does this work?':u.userID}
 
 # ENDPOINT - Login
 @application.route('/login', methods=['POST'])
@@ -152,7 +133,7 @@ def check_login_creds():
     user = User.query.filter_by(email=email, password=password).first()
 
     if bool(user) == True:
-        output = {"response": str(User.userID)}
+        output = {"response": str(user.userID)}
     else:
         output = {"response": "Invalid credentials."}
 
@@ -160,5 +141,5 @@ def check_login_creds():
 
 # Run server
 if __name__ == '__main__':
-    application.run(host='0.0.0.0') 
-    # application.run(debug=True)
+    # application.run(host='0.0.0.0')
+    application.run(debug=True)

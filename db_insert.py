@@ -10,7 +10,10 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
-sql = "DROP TABLE testtbl;"
+sql = "CREATE TABLE userratesmovie(movieID INT,userID INT,isLiked BOOLEAN, PRIMARY KEY (movieID,userID),FOREIGN KEY (movieID) REFERENCES movie(movieID),FOREIGN KEY (userID) REFERENCES user(userID));"
+# sql = "drop table user_rates_movie;"
+# sql = "drop table user_movie_blacklist_vote;"
+
 
 mycursor.execute(sql)
 
