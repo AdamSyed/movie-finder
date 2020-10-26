@@ -27,8 +27,7 @@ class User(db.Model):
     groups = db.relationship('Useringroup', backref='user', lazy=True)
     movieblacklistedvotes = db.relationship('Usermovieblacklistvote', backref='user', lazy=True)
 
-    def __init__(self,userID,email,password,firstname,lastname):
-        self.userID = userID
+    def __init__(self,email,password,firstname,lastname):
         self.email = email
         self.password = password
         self.firstname = firstname
@@ -73,7 +72,7 @@ class Grp(db.Model):
     blacklist_threshold = db.Column(db.Integer)
     max_size = db.Column(db.Integer)
     users = db.relationship('Useringroup', backref='grp', lazy=True)
-    userblacklistvotes =  db.relationship('UseringroUsermovieblacklistvoteup', backref='grp', lazy=True)
+    userblacklistvotes =  db.relationship('Usermovieblacklistvote', backref='grp', lazy=True)
 
     def __init__(self,groupID,name,blacklist_threshold,max_size):
         self.groupID = groupID
@@ -238,12 +237,12 @@ def create():
     last_name = request.json['last_name']
     password = request.json['password']
     
-    user = User(email,first_name,last_name,password)
+    user = User(email,password,first_name,last_name)
 
     db.session.add(user)
     db.session.commit()
 
-    user_id = User.query.filter_by(email = email).first().user_ID
+    user_id = User.query.filter_by(email = email).first().userID
     output = {'response':user_id}
 
     return jsonify(output)
