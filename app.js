@@ -36,10 +36,12 @@ async function returnMovie() {
     const jsonFile = await response.json();
 
 	console.log(jsonFile);
-
+    
+    var movieName = jsonFile[3];
+    var genre = jsonFIle [4];
     //document.write(movie);
-    document.write("MovieTest");
+    document.write(movieName);
     document.write("<br>");
-    document.write("Genre");
+    document.write(genre);
    //json.response == 'MovieName'
 }

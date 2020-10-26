@@ -23,7 +23,8 @@ class User(db.Model):
     password = db.Column(db.String(200), nullable=False)
     firstname = db.Column(db.String(100), nullable=False)
     lastname = db.Column(db.String(100), nullable=False)
-    moviesRated = db.relationship('User_Rates_Movie', backref='user', lazy=True)
+    moviesRated = db.relationship('Userratesmovie', backref='user', lazy=True)
+    #moviesRated = db.relationship("Movie", secondary = "ratings")
 
     def __init__(self,userID,email,password,firstname,lastname):
         self.userID = userID
@@ -96,7 +97,8 @@ class Movie(db.Model):
     imdb_rating = db.Column(db.Float)
     photo = db.Column(db.String(500))
     imdb_link = db.Column(db.String(500))
-    moviesRated = db.relationship('User_Rates_Movie', backref='movie', lazy=True)
+    moviesRated = db.relationship('Userratesmovie', backref='movie', lazy=True)
+    #moviesRated = db.relationship("User", secondary = "ratings")
 
     def __init__(self,movieID,name,year,director,genre,imdb_rating,photo,imdb_link):
         self.movieID = movieID
@@ -119,25 +121,28 @@ movie_schema = MovieSchema()
 movies_schema = MovieSchema(many=True)
 
 
-class User_Rates_Movie(db.Model): ##
+class Userratesmovie(db.Model): ##
     movieID = db.Column (db.Integer, db.ForeignKey(Movie.movieID),primary_key=True)
     userID = db.Column (db.Integer, db.ForeignKey(User.userID),primary_key=True)
-    isLIked = db.Column (db.Boolean, nullable = False)
+    isLiked = db.Column (db.Boolean, nullable = False)
+
+    #user = db.relationship(User, backref=db.backref("ratings", cascade="all, delete-orphan"))
+    #movie = db.relationship (Movie, backref=db.backref("ratings", cascade="all, delete-orphan"))
 
     def __init__(self,movieID,userID,isLiked):
         self.movieID = movieID
         self.userID = userID
-        self.isLikeds = isLiked
+        self.isLiked = isLiked
 
 # User_rates_Movie Schema - for marshmallow
-class User_Rates_MovieSchema(ma.Schema):
+class UserRatesMovieSchema(ma.Schema):
     class Meta: #all the variables you want to see
         strict = True
         fields = ('movieID','userID','isLiked')
 
 # Initiate User_Rates_Movie Schema
-user_rates_movie_schema = User_Rates_MovieSchema()
-user_rates_movies_schema = User_Rates_MovieSchema(many=True)
+userRatesMovie_schema = UserRatesMovieSchema()
+userRatesMovies_schema = UserRatesMovieSchema(many=True)
 
 # # User In Group Class
 # class UserGroup(db.Model):
@@ -186,19 +191,26 @@ def movie_option(userID):
     #this endpoint will take the user id and look through all the movies in the database that do not have a Yes/No choice made already by the user
     #it will then output one of those undecided options for the movie
 
-    #code to unstub once schema created
-    #movieInfo = ratings.filter_by(UserID = UserID, isLiked=NULL).first()
-    #movieChoice = Movie.query.get(movieInfo.movieID)
-    ##########output = {"response": str.(Movie.name)}
-    #return jsonify (movieChoice)
-    m = User.query.filter_by(userID=1).first()
-    results = m.moviesRated
-    ####movieInfo = m.users
-    #stubbed output
-    #movieChoice = {"movie": "TestMovie"}
-    ###movieChoice = Movie.query.get(movieInfo.movieID)
-    ###return jsonify (movieChoice)
-    return jsonify({"Response": results})
+    #first query to get the user that is currenlty logged in
+    m = User.query.filter_by(userID=userID).first()
+    
+    #this needs to be expanded in future sprints
+
+    #the results scanner is hardcoded for Sprint 1 to take in the first instace in the User_Rates_Movies index to see if the user has any movies they have alreadty watched
+    results = [m.moviesRated[1].movieID, m.moviesRated[1].userID, m.moviesRated[1].isLiked]
+
+    #next, we get movies that are not on the list to get the movies that have not been rated
+    moviesUnrated = Movie.query.filter(Movie.movieID != results[0]).first()
+    movieData = [moviesUnrated.name, moviesUnrated.genre]
+
+    #finally, return the data of the movie being rated, the userID, and the movie info to display
+    fullResults = [results[0],results[1],movieData[0],movieData[1]]
+
+    #next 2 lines are for unit testing of the arrays that we will send to the JS
+    #print (results)
+    #print (movieData)
+   
+    return jsonify(fullResults)
 
 # Run server
 if __name__ == '__main__':
