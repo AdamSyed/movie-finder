@@ -47,8 +47,28 @@ async function create_user(){
 
 async function returnMovie() {
     //this function will return the movie
-    //const api_endpoint = 'rating';
+    const RETURN_MOVIE_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/rating/';   
 
-    //json.response == 'MovieName'
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+
+    const response = await fetch(RETURN_MOVIE_URL.concat(vars), {
+    //const response = await fetch(RETURN_MOVIE_URL.concat(), {
+    //const response = await fetch(RETURN_MOVIE_URL, {
+        method: 'GET'
+    });
+    const jsonFile = await response.json();
+
+	console.log(jsonFile);
+    
+    var movieName = jsonFile[3];
+    var genre = jsonFIle [4];
+    //document.write(movie);
+    document.write(movieName);
+    document.write("<br>");
+    document.write(genre);
+   //json.response == 'MovieName'
 }
 
