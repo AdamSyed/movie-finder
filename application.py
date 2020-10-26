@@ -159,6 +159,7 @@ def check_login_creds():
 
     return jsonify(output)
 
+# ENDPOINT - Rating
 @application.route('/rating', methods = ['GET'])
 def movie_option():
     #this endpoint will take the user id and look through all the movies in the database that do not have a Yes/No choice made already by the user
@@ -169,6 +170,20 @@ def movie_option():
     output = {"response": "TestMovie"}
 
     return output
+
+# ENDPOINT - User rating
+@application.route('/rate-yes', methods = ['PUT'])
+def rate_yes():
+    movieID = request.json['movieID']
+    userID = request.json['userID']
+    
+    user_rates_movie_schema = User_Rates_Movie(movieID,userID,True)
+
+    db.session.add(user_rates_movie_schema)
+    db.session.commit()
+
+    return ({'response':'Good'})
+    # this method will insert into the user_rates_movie table 
 
 
 # Run server
