@@ -24,10 +24,10 @@ class User(db.Model):
     firstname = db.Column(db.String(100), nullable=False)
     lastname = db.Column(db.String(100), nullable=False)
     moviesRated = db.relationship('Userratesmovie', backref='user', lazy=True)
-    #moviesRated = db.relationship("Movie", secondary = "ratings")
+    groups = db.relationship('Useringroup', backref='user', lazy=True)
+    movieblacklistedvotes = db.relationship('Usermovieblacklistvote', backref='user', lazy=True)
 
-    def __init__(self,userID,email,password,firstname,lastname):
-        self.userID = userID
+    def __init__(self,email,password,firstname,lastname):
         self.email = email
         self.password = password
         self.firstname = firstname
@@ -48,6 +48,7 @@ class Actor(db.Model):
     actorID = db.Column(db.Integer, primary_key=True)
     actor_firstname = db.Column(db.String(100), nullable=False)
     actor_lastname = db.Column(db.String(200), nullable=False)
+    movies = db.relationship('Actorinmovie', backref='actor', lazy=True)
     
     def __init__(self,actorID,actor_firstname,actor_lastname):
         self.actorID = actorID
@@ -70,6 +71,8 @@ class Grp(db.Model):
     name = db.Column(db.String(200), nullable=False)
     blacklist_threshold = db.Column(db.Integer)
     max_size = db.Column(db.Integer)
+    users = db.relationship('Useringroup', backref='grp', lazy=True)
+    userblacklistvotes =  db.relationship('Usermovieblacklistvote', backref='grp', lazy=True)
 
     def __init__(self,groupID,name,blacklist_threshold,max_size):
         self.groupID = groupID
@@ -84,8 +87,8 @@ class GrpSchema(ma.Schema):
         fields = ('groupID','name','blacklist_threshold','max_size')
 
 # Initiate Group Schema
-group_schema = GrpSchema()
-groups_schema = GrpSchema(many=True)
+grp_schema = GrpSchema()
+grps_schema = GrpSchema(many=True)
 
 # Movie Class
 class Movie(db.Model):
@@ -98,7 +101,8 @@ class Movie(db.Model):
     photo = db.Column(db.String(500))
     imdb_link = db.Column(db.String(500))
     moviesRated = db.relationship('Userratesmovie', backref='movie', lazy=True)
-    #moviesRated = db.relationship("User", secondary = "ratings")
+    actors = db.relationship('Actorinmovie', backref='movie', lazy=True)
+    userblacklistvotes = db.relationship('Usermovieblacklistvote', backref='movie', lazy=True)
 
     def __init__(self,movieID,name,year,director,genre,imdb_rating,photo,imdb_link):
         self.movieID = movieID
@@ -120,14 +124,10 @@ class MovieSchema(ma.Schema):
 movie_schema = MovieSchema()
 movies_schema = MovieSchema(many=True)
 
-
-class Userratesmovie(db.Model): ##
+class Userratesmovie(db.Model):
     movieID = db.Column (db.Integer, db.ForeignKey(Movie.movieID),primary_key=True)
     userID = db.Column (db.Integer, db.ForeignKey(User.userID),primary_key=True)
     isLiked = db.Column (db.Boolean, nullable = False)
-
-    #user = db.relationship(User, backref=db.backref("ratings", cascade="all, delete-orphan"))
-    #movie = db.relationship (Movie, backref=db.backref("ratings", cascade="all, delete-orphan"))
 
     def __init__(self,movieID,userID,isLiked):
         self.movieID = movieID
@@ -144,6 +144,70 @@ class UserRatesMovieSchema(ma.Schema):
 userRatesMovie_schema = UserRatesMovieSchema()
 userRatesMovies_schema = UserRatesMovieSchema(many=True)
 
+# UserInGroup Class
+class Useringroup(db.Model):
+    groupID = db.Column (db.Integer, db.ForeignKey(Grp.groupID),primary_key=True)
+    userID = db.Column (db.Integer, db.ForeignKey(User.userID),primary_key=True)
+    joined_at = db.Column(db.DateTime)
+    left_at = db.Column (db.DateTime)
+
+    def __init__(self,groupID,userID,joined_at,left_at):
+        self.groupID = groupID
+        self.userID = userID
+        self.joined_at = joined_at
+        self.left_at = left_at
+
+# UserInGroupSchema Schema - for marshmallow
+class UserInGroupSchema(ma.Schema):
+    class Meta: #all the variables you want to see
+        strict = True
+        fields = ('groupID','userID','joined_at','left_at')
+
+# Initiate UserInGroupSchema Schema
+userInGroup_schema = UserInGroupSchema()
+userInGroups_schema = UserInGroupSchema(many=True)
+
+# Actorinmovie Class
+class Actorinmovie(db.Model):
+    movieID = db.Column (db.Integer, db.ForeignKey(Movie.movieID),primary_key=True)
+    actorID = db.Column (db.Integer, db.ForeignKey(Actor.actorID),primary_key=True)
+    
+    def __init__(self,movieID,actorID):
+        self.movieID = movieID
+        self.actorID = actorID
+    
+# Actorinmovie Schema - for marshmallow
+class ActorInMovieSchema(ma.Schema):
+    class Meta: #all the variables you want to see
+        strict = True
+        fields = ('movieID','actorID')
+
+# Initiate Actorinmovie Schema
+ActorInMovie_schema = ActorInMovieSchema()
+ActorInMovies_schema = ActorInMovieSchema(many=True)
+
+# UserMovieBlacklistVote Class
+class Usermovieblacklistvote(db.Model):
+    movieID = db.Column (db.Integer, db.ForeignKey(Movie.movieID),primary_key=True)
+    userID = db.Column (db.Integer, db.ForeignKey(User.userID),primary_key=True)
+    groupID = db.Column (db.Integer, db.ForeignKey(Grp.groupID),primary_key=True)
+    blacklist_vote = db.Column (db.Boolean)
+    
+    def __init__(self,movieID,userID,groupID,blacklist_vote):
+        self.movieID = movieID
+        self.userID = userID
+        self.groupID = groupID
+        self.blacklist_vote = blacklist_vote
+    
+# UserMovieBlacklistVote Schema - for marshmallow
+class UserMovieBlacklistVoteSchema(ma.Schema):
+    class Meta: #all the variables you want to see
+        strict = True
+        fields = ('movieID','userID','groupID','blacklist_vote')
+
+# Initiate UserMovieBlacklistVote Schema
+UserMovieBlacklistVote_schema = UserMovieBlacklistVoteSchema()
+UserMovieBlacklistVotes_schema = UserMovieBlacklistVoteSchema(many=True)
 
 @application.route('/', methods=['GET'])
 def default():
@@ -158,11 +222,12 @@ def check_login_creds():
     user = User.query.filter_by(email=email, password=password).first()
 
     if bool(user) == True:
-        output = {"response": str(User.userID)}
+        output = {"response": str(user.userID)}
     else:
         output = {"response": "Invalid credentials."}
 
     return jsonify(output)
+
 
 # ENDPOINT - Create user account
 @application.route('/create',methods=['PUT'])
@@ -172,12 +237,12 @@ def create():
     last_name = request.json['last_name']
     password = request.json['password']
     
-    user = User(email,first_name,last_name,password)
+    user = User(email,password,first_name,last_name)
 
     db.session.add(user)
     db.session.commit()
 
-    user_id = User.query.filter_by(email = email).first().user_ID
+    user_id = User.query.filter_by(email = email).first().userID
     output = {'response':user_id}
 
     return jsonify(output)
@@ -188,7 +253,7 @@ def movie_option(userID):
     #this endpoint will take the user id and look through all the movies in the database that do not have a Yes/No choice made already by the user
     #it will then output one of those undecided options for the movie
 
-    #first query to get the user that is currenlty logged in
+    #first query to get the user that is currently logged in
     m = User.query.filter_by(userID=userID).first()
     
     #this needs to be expanded in future sprints
@@ -209,10 +274,37 @@ def movie_option(userID):
    
     return jsonify(fullResults)
 
+# ENDPOINT - User rating yes
+@application.route('/rate-yes', methods = ['PUT'])
+def rate_yes():
+    movieID = request.json['movieID']
+    userID = request.json['userID']
+    
+    user_rates_movie_schema = User_Rates_Movie(movieID,userID,True)
+
+    db.session.add(user_rates_movie_schema)
+    db.session.commit()
+    # call method to display movie, will display a new unseen movie
+
+    return ({'response':'Good'})
+    # this method will insert into the user_rates_movie table 
+
+# ENDPOINT - User rating no
+@application.route('/rate-no', methods = ['PUT'])
+def rate_yes():
+    movieID = request.json['movieID']
+    userID = request.json['userID']
+    
+    user_rates_movie_schema = User_Rates_Movie(movieID,userID,False)
+
+    db.session.add(user_rates_movie_schema)
+    db.session.commit()
+    # call method to display movie, will display a new unseen movie
+
+    return ({'response':'Good'})
+    # this method will insert into the user_rates_movie table 
 
 # Run server
 if __name__ == '__main__':
-    #application.run(host='0.0.0.0') 
-    application.run(debug=True)
-
-
+    application.run(host='0.0.0.0')
+    #application.run(debug=True)
