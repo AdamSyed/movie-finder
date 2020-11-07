@@ -46,7 +46,12 @@ window.location.replace(redirect);
 
 async function returnMovie() {
     //this function will return the movie
+
+    //this first section is the hardcoded section
     const RETURN_MOVIE_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/rating/1';   
+
+    //this is what the actual section should be referrring to once we have post working properly
+    //const RETURN_MOVIE_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/rating';
 
     //var vars = {};
     //var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
@@ -63,17 +68,27 @@ async function returnMovie() {
 	console.log(jsonFile);
     
 
-    //var movieName = jsonFile[3];
-    //var genre = jsonFIle [4];
-    //document.write("Movie Name");
-    //document.write(movieName);
+    //from the jsonFile: 0 = id, 1 = movieID, 2 = movie name, 3 = genre,4 = director; will add 5 = image, 6 to end = actors in later sprints as needed 
 
     var movieName = jsonFile[2];
-    var genre = jsonFile [3];
-    //document.write(movie);
-    document.write(movieName);
+    var genre = jsonFile[3];
+    var director = jsonFile[4];
 
+    //printout for testing
+    document.write(movieName);
     document.write("<br>");
+    document.write(genre);
+    document.write("<br>");
+    document.write(director);
+
+    //to add to the html for each output section
+    //<p id="invalid"></p>
+
+    //document.getElementById('movie').innerHTML = jsonFile[2];
+    //document.getElementById('genre').innerHTML = jsonFIle[3];
+    //repeat this for the other displays we want to output
+
+    //document.write("<br>");
     //document.write(genre);
    //json.response == 'MovieName'
 }

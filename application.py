@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+import numpy as np
 
 # Initiate application
 application = Flask(__name__)
@@ -250,29 +251,44 @@ def create():
 
 @application.route('/rating/<userID>', methods = ['GET'])
 def movie_option(userID):
+    #to do November 7: change this method into a post method that will search for an ID (that way it is no longer hardcoded
+
     #this endpoint will take the user id and look through all the movies in the database that do not have a Yes/No choice made already by the user
     #it will then output one of those undecided options for the movie
 
     #first query to get the user that is currently logged in
     m = User.query.filter_by(userID=userID).first()
     
-    #this needs to be expanded in future sprints
+    #logic for finding a movie
+    #first, get a list of all rated movies for a user and we convert this into a list of movieIds only
+    
+    #declare list variable to add movieIDs to
+    ratedMovies = []
+    
+    #for each movie-user-rated relationship, we append the movieID to out list of ratedMovies
+    for i in m.moviesRated:
+        ratedMovies.append(i.movieID)
 
-    #the results scanner is hardcoded for Sprint 1 to take in the first instace in the User_Rates_Movies index to see if the user has any movies they have alreadty watched
-    results = [m.moviesRated[1].movieID, m.moviesRated[1].userID, m.moviesRated[1].isLiked]
+    #then get a list of all the movies
+    allMovieID = []
+    allMovies = Movie.query.all()
+    for j in allMovies:
+        allMovieID.append(j.movieID)
+    ##print(allMovieID) 
 
-    #next, we get movies that are not on the list to get the movies that have not been rated
-    moviesUnrated = Movie.query.filter(Movie.movieID != results[0]).first()
-    movieData = [moviesUnrated.name, moviesUnrated.genre]
-
-    #finally, return the data of the movie being rated, the userID, and the movie info to display
-    fullResults = [results[0],results[1],movieData[0],movieData[1]]
-
-    #next 2 lines are for unit testing of the arrays that we will send to the JS
-    #print (results)
-    #print (movieData)
-   
-    return jsonify(fullResults)
+    #find the movies that are in the list of all movies but not in the list of the movies rated by the user (this can be done by comparing the 2 lists)
+    unratedMovies = np.setdiff1d(allMovieID,ratedMovies)
+    print(unratedMovies[0])
+    #return the details of the first movie on that list (we can add complexity to this as needed)
+    #add in a try/except in case all movies have been rated
+    try:
+        nextMovie = Movie.query.get(unratedMovies[0])
+        movieData = [userID, nextMovie.movieID, nextMovie.name, nextMovie.genre, nextMovie.director]
+    except:
+        movieData = [userID, 'N/A', 'N/A', 'N/A', 'N/A']
+    
+    #finally, we return the results
+    return jsonify(movieData)
 
 # ENDPOINT - User rating yes
 #@application.route('/rate-yes', methods = ['PUT'])
@@ -306,5 +322,5 @@ def movie_option(userID):
 
 # Run server
 if __name__ == '__main__':
-    application.run(host='0.0.0.0')
-    #application.run(debug=True)
+    #application.run(host='0.0.0.0')
+    application.run(debug=True)
