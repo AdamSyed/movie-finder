@@ -119,8 +119,10 @@ async function clickedYes() {
     });
 
     const json = await response.json();
-    
-    window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id='+json.response);
+    console.log(json.response);
+
+    window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response);
+    //window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=1');
 }
 async function clickedNo() {
     const api_endpoint = 'rate-no';
