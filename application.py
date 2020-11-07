@@ -229,7 +229,6 @@ def check_login_creds():
 
     return jsonify(output)
 
-
 # ENDPOINT - Create user account
 @application.route('/create',methods=['PUT'])
 def create():
@@ -248,6 +247,54 @@ def create():
 
     return jsonify(output)
 
+# ENDPOINT - Get user preferences
+@application.route('/user-preferences',methods=['POST'])
+def user_preferences():
+    id = request.json['id']
+    
+    user = User.query.filter_by(userID=id).first()
+
+    if bool(user) == True:
+        output = {"email":user.email, "password":user.password,"firstname":user.firstname,"lastname":user.lastname}
+    else:
+        output = {"response": "Invalid ID."}
+
+    return jsonify(output)
+
+# ENDPOINT - Update user preferences
+@application.route('/update-user-preferences',methods=['PUT'])
+def update_user_preferences():
+    id = request.json['id']
+    user = User.query.get(id)
+
+    user.firstname = request.json['firstname']
+    user.lastname = request.json['lastname']
+    user.password = request.json['password']
+
+    try:
+        db.session.commit()
+        output = {'response':'Success'}
+    except:
+        output = {'response':'Error'}
+
+    return jsonify(output)
+
+# ENDPOINT - Get all movie rated by a user
+@application.route('/all-movie-ratings',methods=['POST'])
+def all_movie_ratings():
+    id = request.json['id']
+    
+    user = User.query.filter_by(userID=id).first()
+
+    if bool(user) == True:
+        output = []
+        for m in user.moviesRated:
+            movie = Movie.query.filter_by(movieID = m.movieID).first()
+            output.append({'movieName':movie.name,'isLiked':m.isLiked})
+    else:
+        output = {"response": "Invalid ID."}
+
+    return jsonify(output)
 
 @application.route('/rating/<userID>', methods = ['GET'])
 def movie_option(userID):
@@ -290,37 +337,40 @@ def movie_option(userID):
     #finally, we return the results
     return jsonify(movieData)
 
-# ENDPOINT - User rating yes
-#@application.route('/rate-yes', methods = ['PUT'])
-#def rate_yes():
-#    movieID = request.json['movieID']
-#    userID = request.json['userID']
+
+# # ENDPOINT - User rating yes
+# @application.route('/rate-yes', methods = ['PUT'])
+# def rate_yes():
+#     movieID = request.json['movieID']
+#     userID = request.json['userID']
     
-#    user_rates_movie_schema =  Userratesmovie(movieID,userID,True)
+#     user_rates_movie_schema = User_Rates_Movie(movieID,userID,True)
 
-#    db.session.add(user_rates_movie_schema)
-#    db.session.commit()
-#    # call method to display movie, will display a new unseen movie
+#     db.session.add(user_rates_movie_schema)
+#     db.session.commit()
+#     # call method to display movie, will display a new unseen movie
 
-#    return ({'response':'Good'})
-#    # this method will insert into the user_rates_movie table 
+#     return ({'response':'Good'})
+#     # this method will insert into the user_rates_movie table 
 
-## ENDPOINT - User rating no
-#@application.route('/rate-no', methods = ['PUT'])
-#def rate_yes():
-#    movieID = request.json['movieID']
-#    userID = request.json['userID']
+# # ENDPOINT - User rating no
+# @application.route('/rate-no', methods = ['PUT'])
+# def rate_yes():
+#     movieID = request.json['movieID']
+#     userID = request.json['userID']
     
-#    user_rates_movie_schema =  Userratesmovie(movieID,userID,False)
+#     user_rates_movie_schema = User_Rates_Movie(movieID,userID,False)
 
-#    db.session.add(user_rates_movie_schema)
-#    db.session.commit()
-#    # call method to display movie, will display a new unseen movie
+#     db.session.add(user_rates_movie_schema)
+#     db.session.commit()
+#     # call method to display movie, will display a new unseen movie
 
-#    return ({'response':'Good'})
-#    # this method will insert into the user_rates_movie table 
+#     return ({'response':'Good'})
+#     # this method will insert into the user_rates_movie table 
+
 
 # Run server
 if __name__ == '__main__':
+
     #application.run(host='0.0.0.0')
     application.run(debug=True)
