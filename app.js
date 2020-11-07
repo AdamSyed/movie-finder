@@ -66,7 +66,7 @@ async function create_user(){
 async function returnMovie() {
     //this function will return the movie
 
-    // const RETURN_MOVIE_URL = 'http://moviefinder.us-east-1.elasticbeanstalk.com/rating/1 ';  
+    // const RETURN_MOVIE_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/rating/1';
     const RETURN_MOVIE_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/rating';
     var vars = {};
     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
@@ -74,10 +74,10 @@ async function returnMovie() {
    });
    console.log(vars.id);
 
-    //const response = await fetch(RETURN_MOVIE_URL.concat(vars), {
+    const response = await fetch(RETURN_MOVIE_URL.concat(vars), {
     //const response = await fetch(RETURN_MOVIE_URL.concat(), {
-    const response = await fetch(RETURN_MOVIE_URL, {
-        method: 'GET' 
+    //const response = await fetch(RETURN_MOVIE_URL, {
+        method: 'POST' 
     });
     const jsonFile = await response.json();
 
@@ -91,18 +91,20 @@ async function returnMovie() {
     var director = jsonFile[4];
 
     //printout for testing. This will currently overwrite the HTML display on this page
-    document.write(movieName);
-    document.write("<br>");
-    document.write(genre);
-    document.write("<br>");
-    document.write(director);
+    //document.write(movieName);
+    //document.write("<br>");
+    //document.write(genre);
+    //document.write("<br>");
+    //document.write(director);
 
     //to add to the html for each output section
     //<p id="invalid"></p>
 
     //assign the Javascript values to the approporate HTML sections for diplay
-    //document.getElementById('movie').innerHTML = jsonFile[2];
-    //document.getElementById('genre').innerHTML = jsonFIle[3];
+    document.getElementById('movie_name').innerHTML = jsonFile[2];
+    document.getElementById('movie_genre').innerHTML = jsonFIle[3];
+    document.getElementById('movie_director').innerHTML = jsonFIle[4];
+    document.getElementById('movie_id').innerHTML = jsonFile[1];
     //repeat this for the other displays we want to output
 
     //document.write("<br>");

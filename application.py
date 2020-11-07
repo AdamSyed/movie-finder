@@ -296,9 +296,9 @@ def all_movie_ratings():
 
     return jsonify(output)
 
-@application.route('/rating/<userID>', methods = ['GET'])
-def movie_option(userID):
-    #to do November 7: change this method into a post method that will search for an ID (that way it is no longer hardcoded
+@application.route('/rating', methods = ['POST'])
+def movie_option():
+    userID = request.json['id']
 
     #this endpoint will take the user id and look through all the movies in the database that do not have a Yes/No choice made already by the user
     #it will then output one of those undecided options for the movie
