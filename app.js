@@ -61,7 +61,7 @@ async function returnMovie() {
     //const response = await fetch(RETURN_MOVIE_URL.concat(vars), {
     //const response = await fetch(RETURN_MOVIE_URL.concat(), {
     const response = await fetch(RETURN_MOVIE_URL, {
-        method: 'GET'
+        method: 'GET' 
     });
     const jsonFile = await response.json();
 
@@ -74,7 +74,7 @@ async function returnMovie() {
     var genre = jsonFile[3];
     var director = jsonFile[4];
 
-    //printout for testing
+    //printout for testing. This will currently overwrite the HTML display on this page
     document.write(movieName);
     document.write("<br>");
     document.write(genre);
@@ -84,6 +84,7 @@ async function returnMovie() {
     //to add to the html for each output section
     //<p id="invalid"></p>
 
+    //assign the Javascript values to the approporate HTML sections for diplay
     //document.getElementById('movie').innerHTML = jsonFile[2];
     //document.getElementById('genre').innerHTML = jsonFIle[3];
     //repeat this for the other displays we want to output

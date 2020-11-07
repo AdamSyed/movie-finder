@@ -260,26 +260,26 @@ def movie_option(userID):
     m = User.query.filter_by(userID=userID).first()
     
     #logic for finding a movie
-    #first, get a list of all rated movies for a user and we convert this into a list of movieIds only
+    #1. Get a list of all rated movies for a user and we convert this into a list of movieIds only
     
     #declare list variable to add movieIDs to
     ratedMovies = []
     
-    #for each movie-user-rated relationship, we append the movieID to out list of ratedMovies
+    #2. For each movie-user-rated relationship, we append the movieID to out list of ratedMovies
     for i in m.moviesRated:
         ratedMovies.append(i.movieID)
 
-    #then get a list of all the movies
+    #3. Get a list of all the movies
     allMovieID = []
     allMovies = Movie.query.all()
     for j in allMovies:
         allMovieID.append(j.movieID)
-    ##print(allMovieID) 
 
-    #find the movies that are in the list of all movies but not in the list of the movies rated by the user (this can be done by comparing the 2 lists)
+    #4. Find the movies that are in the list of all movies but not in the list of the movies rated by the user (this can be done by comparing the 2 lists)
     unratedMovies = np.setdiff1d(allMovieID,ratedMovies)
-    print(unratedMovies[0])
-    #return the details of the first movie on that list (we can add complexity to this as needed)
+
+    #5. Gather the relevant details of the first movie on that list from 4 to output
+    #right now we use a simple selection of the first movie on the list.  Later on, if we feel that more complex logic is needed to create a fair representation, then that can be changed below
     #add in a try/except in case all movies have been rated
     try:
         nextMovie = Movie.query.get(unratedMovies[0])
