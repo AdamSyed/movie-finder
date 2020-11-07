@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <<head>
     <!--Put  Tab Title Here-->
     <title>Rate Movies</title>
@@ -38,7 +39,7 @@
         td {
             border: none !important;
         }
-
+      
         .input {
             height: 30px !important;
         }
@@ -56,6 +57,9 @@
                  Select whether you like or dislike the movie shown Below
              </h5>
             
+           <script>
+                returnMovie();
+            </script>
             
                  <table cellspacing=0 cellpadding=0>
 
@@ -68,32 +72,47 @@
 
                          <!--Pass Title Info into here-->
                          <td>
-                             <p style="font-size: 30px">INSERT TITLE INFO HERE</p>
+                             <div id="movie_name" type="text">
+                         </div>
                          </td>
 
                      </tr>
-
+                        <!--Pass Genre Info into here-->
                      <tr>
                          <td style="text-align: right">
                              <b style="font-size: 30px">Genre:<b>
                          </td>
 
-                         <!--Pass Genre Info into here-->
+                        
                          <td>
-                             <p style="font-size: 30px">INSERT GENRE INFO HERE</p>
+                             <div id="movie_genre" type="text">
+                        </div>
                          </td>
                      </tr>
+                           
+                           <!--Pass Director Info into here-->
+                     <tr>
+                         <td style="text-align: right">
+                             <b style="font-size: 30px">Director:<b>
+                         </td>
+
+                        
+                         <td>
+                             <div id="movie_director" type="text">
+                        </div>
+                         </td>
+                     </tr>  
 
 
                      <!--The OnClick() values for the buttons MUST be changed to accurate ones-->
                      <tr>
                          <td>
-                             <input type="button" class="button is-Disliked" value="Dislike" onClick="isDisliked()" style="font-size: 30px; border-color: black; font-weight: bold;color:white; background-color: red; width: 300px">
+                             <input type="button" class="button is-Disliked" value="Dislike" onClick="clickedNo()" style="font-size: 30px; border-color: black; font-weight: bold;color:white; background-color: red; width: 300px">
 
                          </td>
 
                          <td>
-                             <input type="button" class="button is-Liked" value="Like" onClick="isLiked()" style="font-size:30px;font-weight:bold;border-color: black; color:white; background-color:green; width:300px">
+                             <input type="button" class="button is-Liked" value="Like" onClick="clickedYes()" style="font-size:30px;font-weight:bold;border-color: black; color:white; background-color:green; width:300px">
                          </td>
                      </tr>
 
@@ -105,4 +124,5 @@
 
 
  </body>
+
 </html>

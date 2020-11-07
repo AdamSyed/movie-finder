@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Finder</title>
+    <style>
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -moz-transform: translateX(-50%) translateY(-50%);
+            -webkit-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+            width: 80;
+            margin: auto;
+        }
 
+        .pre-content {
+            background-color: #F9F9F9;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        label {
+            font-weight: normal !important;
+        }
+
+        /* table {
+            border-collapse: collapse !important;
+        }
+
+        tr {
+            border: none !important;
+        }
+
+        td {
+            border: none !important;
+        }
+
+        .input {
+            height: 30px !important;
+        } */
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script src="user-profile.js"></script>
+</head>
+<body>
+    <div class="pre-content">
+        <div class="content">
+            <form name = "info">
+                <label for="first_name" class="label">First Name</label>
+                <input type="text" id="first_name" name="first_name"><br>
+                <br><label for="last_name" class="label">Last Name</label>
+                <input type="text" id="last_name" name="last_name"><br>
+                <br><label for="email" class="label">Email</label>
+                <input type="text" id="email" name="Email" readonly><br>
+                <br><label for="password" class="label">Password</label>
+                <input type="text" id="password" name="Password"><br>
+                <br>
+                <input class = "button is-info" style="width:100%;" type="button" value="Save" onClick="update()">
+                <br>
+            </form>
+            <p id="saved"></p>
+        </div>
+    </div>
+</body>
+</html>
