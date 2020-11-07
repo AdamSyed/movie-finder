@@ -1,5 +1,20 @@
 const API_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/';
 
+function redirectPost(url, id) {
+    var form = document.createElement('form');
+    document.body.appendChild(form);
+    form.method = 'post';
+    form.action = url;
+
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = "id";
+    input.value = id;
+    form.appendChild(input);
+
+    form.submit();
+}
+
 async function login(){
     const api_endpoint = 'login';
     var email = document.credentials.Email.value;
@@ -17,9 +32,9 @@ async function login(){
     const json = await response.json();
     console.log(json)
     if (json.response == 'Invalid credentials.'){
-         document.getElementById('invalid').innerHTML = 'Invalid credentials';
+        document.getElementById('invalid').innerHTML = 'Invalid credentials';
     } else {
-        window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id='+json.response);
+        redirectPost('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html', json.response);
     }
 }
 
@@ -28,34 +43,35 @@ function create(){
 }
 
 async function create_user(){
-const api_endpoint = 'create';
-var first_name = document.info.first_name.value;
-var last_name = document.info.last_name.value;
-var email = document.info.email.value;
-var password = document.info.password.value;
+    const api_endpoint = 'create';
+    var first_name = document.info.first_name.value;
+    var last_name = document.info.last_name.value;
+    var email = document.info.email.value;
+    var password = document.info.password.value;
 
-const response = await fetch(API_URL.concat(api_endpoint), {
-    method: 'PUT',
-    headers: {
-        'Content-Type':'application/json'
-    },
-    body: JSON.stringify({first_name:first_name,last_name:last_name,email:email,password:password})
-});
-const json = await response.json();
-console.log(json.response);
-var redirect = 'http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id='+json.response;
-console.log(redirect);
-window.location.replace(redirect);
+    const response = await fetch(API_URL.concat(api_endpoint), {
+        method: 'PUT',
+        headers: {
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify({first_name:first_name,last_name:last_name,email:email,password:password})
+    });
+    const json = await response.json();
+    console.log(json.response);
+    var redirect = 'http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id='+json.response;
+    console.log(redirect);
+    window.location.replace(redirect);
 }
 
 async function returnMovie() {
     //this function will return the movie
     // const RETURN_MOVIE_URL = 'http://moviefinder.us-east-1.elasticbeanstalk.com/rating/1 ';  
-    const RETURN_MOVIE_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/rating/1';
-    //var vars = {};
-    //var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-      //  vars[key] = value;
-   // });
+    const RETURN_MOVIE_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/rating';
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+       vars[key] = value;
+   });
+   console.log(vars.id);
 
     //const response = await fetch(RETURN_MOVIE_URL.concat(vars), {
     //const response = await fetch(RETURN_MOVIE_URL.concat(), {

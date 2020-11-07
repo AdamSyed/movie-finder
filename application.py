@@ -260,6 +260,24 @@ def user_preferences():
 
     return jsonify(output)
 
+# ENDPOINT - Update user preferences
+@application.route('/update-user-preferences',methods=['PUT'])
+def update_user_preferences():
+    id = request.json['id']
+    user = User.query.get(id)
+
+    user.firstname = request.json['firstname']
+    user.lastname = request.json['lastname']
+    user.password = request.json['password']
+
+    try:
+        db.session.commit()
+        output = {'response':'Success'}
+    except:
+        output = {'response':'Error'}
+
+    return jsonify(output)
+
 # ENDPOINT - Get all movie rated by a user
 @application.route('/all-movie-ratings',methods=['POST'])
 def all_movie_ratings():
