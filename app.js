@@ -46,7 +46,7 @@ window.location.replace(redirect);
 
 async function returnMovie() {
     //this function will return the movie
-    const RETURN_MOVIE_URL = 'http://moviefinder.us-east-1.elasticbeanstalk.com/rating/1 ';   
+    const RETURN_MOVIE_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/rating/1';   
 
     //var vars = {};
     //var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
