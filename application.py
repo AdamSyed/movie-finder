@@ -228,7 +228,6 @@ def check_login_creds():
 
     return jsonify(output)
 
-
 # ENDPOINT - Create user account
 @application.route('/create',methods=['PUT'])
 def create():
@@ -247,6 +246,36 @@ def create():
 
     return jsonify(output)
 
+# ENDPOINT - Get user preferences
+@application.route('/user-preferences',methods=['POST'])
+def user_preferences():
+    id = request.json['id']
+    
+    user = User.query.filter_by(userID=id).first()
+
+    if bool(user) == True:
+        output = {"email":user.email, "password":user.password,"firstname":user.firstname,"lastname":user.lastname}
+    else:
+        output = {"response": "Invalid ID."}
+
+    return jsonify(output)
+
+# ENDPOINT - Get all movie rated by a user
+@application.route('/all-movie-ratings',methods=['POST'])
+def all_movie_ratings():
+    id = request.json['id']
+    
+    user = User.query.filter_by(userID=id).first()
+
+    if bool(user) == True:
+        output = []
+        for m in user.moviesRated:
+            movie = Movie.query.filter_by(movieID = m.movieID).first()
+            output.append({'movieName':movie.name,'isLiked':m.isLiked})
+    else:
+        output = {"response": "Invalid ID."}
+
+    return jsonify(output)
 
 @application.route('/rating/<userID>', methods = ['GET'])
 def movie_option(userID):
@@ -306,5 +335,5 @@ def movie_option(userID):
 
 # Run server
 if __name__ == '__main__':
-    application.run(host='0.0.0.0')
-    #application.run(debug=True)
+    # application.run(host='0.0.0.0')
+    application.run(debug=True)
