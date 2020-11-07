@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--Put Title Here-->
+    <title>Front Page</title>
+    <style>
+
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -moz-transform: translateX(-50%) translateY(-50%);
+            -webkit-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+            width: 80;
+            margin: auto;
+        }
+
+        .pre-content {
+            background-color: #F9F9F9;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        label {
+            font-weight: normal !important;
+        }
+
+        table {
+            border-collapse: collapse !important;
+        }
+
+        tr {
+            border: none !important;
+        }
+
+        td {
+            border: none !important;
+        }
+
+        .input {
+            height: 30px !important;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script src="app.js"></script>
+</head>
+<body>
+    <div class="pre-content">
+        <div class="content">
+            <!-- <center> -->
+            <h1 style="font-size:40px; color:hsl(261, 76%, 46%); font-weight:bold;margin:0 auto;width:100%;text-align:center !important;padding-bottom:10px;">Movie Finder</h1>
+            <h5 class="subtitle is-5" style="text-align: center; padding-bottom: 0px !important;margin-bottom:20px !important">
+                Choosing movies made simple
+            </h5>
+            <!-- </center> -->
+            <form name="credentials">
+                <table cellspacing=0 cellpadding=0>
+                    <tr>
+                        <td>
+                            <label for="email" class="label">Email</label>
+                            <input type="text" class="input" id="email" name="Email"><br>
+                        </td>
+                        <td>
+                            <label for="password" class="label">Password</label>
+                            <input type="password" class="input" id="password" name="Password"><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="button" class="button is-info" value="Log in" onClick="login()" style="width:100%">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <input type="button" class="button is-light" value="White button" onClick="create()" style="border-color:hsl(204, 86%, 53%);background-color: white;width:100%;">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <p id="invalid"></p>
+        </div>
+    </div>
+</body>
+</html>
