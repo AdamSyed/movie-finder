@@ -66,12 +66,19 @@ async function returnMovie() {
 
 	console.log(jsonFile);
     
+
+    //var movieName = jsonFile[3];
+    //var genre = jsonFIle [4];
+    //document.write("Movie Name");
+    //document.write(movieName);
+
     var movieName = jsonFile[2];
     var genre = jsonFile [3];
     //document.write(movie);
     document.write(movieName);
+
     document.write("<br>");
-    document.write(genre);
+    //document.write(genre);
    //json.response == 'MovieName'
 }
 
