@@ -321,6 +321,7 @@ def movie_option(userID):
    
     return jsonify(fullResults)
 
+
 # # ENDPOINT - User rating yes
 # @application.route('/rate-yes', methods = ['PUT'])
 # def rate_yes():
@@ -350,6 +351,7 @@ def movie_option(userID):
 
 #     return ({'response':'Good'})
 #     # this method will insert into the user_rates_movie table 
+
 
 # Run server
 if __name__ == '__main__':
