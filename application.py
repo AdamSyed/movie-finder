@@ -295,6 +295,27 @@ def all_movie_ratings():
 
     return jsonify(output)
 
+# ENDPOINT - Update a movie rating
+@application.route('/update-rating',methods=['PUT'])
+def update_rating():
+    # print('request below ---------------')
+    # print(request)
+    ratings = request.json['ratings']
+    output = {'response':'Success'}
+    print(ratings)
+    for r in ratings:
+        userID = r['userID']
+        movieID = r['movieID']
+        isLiked = r['isLiked']
+        try:
+            rating = Userratesmovie.query.filter_by(userID=userID, movieID = movieID).first()
+            rating.isLiked = isLiked
+
+            db.session.commit()
+        except:
+            output['response'] = 'Error'
+    return jsonify(output)
+
 @application.route('/rating/<userID>', methods = ['GET'])
 def movie_option(userID):
     #this endpoint will take the user id and look through all the movies in the database that do not have a Yes/No choice made already by the user
