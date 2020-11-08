@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Movie Finder</title>
+    <title>User Profile</title>
     <style>
         .content {
             position: absolute;
-            top: 50%;
+            top: 45%;
             left: 50%;
             -moz-transform: translateX(-50%) translateY(-50%);
             -webkit-transform: translateX(-50%) translateY(-50%);
@@ -46,7 +46,13 @@
 <body>
     <div class="pre-content">
         <div class="content">
-            <form name = "info">
+
+            <h1 style="font-size:40px; color:hsl(261, 76%, 46%); font-weight:bold;margin:0 auto;width:100%;text-align:left !important;padding-bottom:20px;">My Profile</h1>
+            <h5 class="subtitle is-5" style="text-align: center; padding-bottom: 0px !important;margin-bottom:30px !important">
+                Edit Profile Information Below
+            </h5>
+
+            <form name="info">
                 <label for="first_name" class="label">First Name</label>
                 <input type="text" id="first_name" name="first_name"><br>
                 <br><label for="last_name" class="label">Last Name</label>
@@ -56,7 +62,7 @@
                 <br><label for="password" class="label">Password</label>
                 <input type="text" id="password" name="Password"><br>
                 <br>
-                <input class = "button is-info" style="width:100%;" type="button" value="Save" onClick="update()">
+                <input class="button is-info" style="width:100%;" type="button" value="Save" onClick="update()">
                 <br>
             </form>
             <p id="saved"></p>

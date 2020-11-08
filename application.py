@@ -361,22 +361,22 @@ def movie_option():
     return jsonify(movieData)
 
 
-# # ENDPOINT - User rating yes
-# @application.route('/rate-yes', methods = ['PUT'])
-# def rate_yes():
-#     movieID = request.json['movieID']
-#     userID = request.json['userID']
-    
-#     user_rates_movie_schema = User_Rates_Movie(movieID,userID,True)
+ # ENDPOINT - User rating yes
+@application.route('/rate-yes', methods = ['PUT'])
+def rate_yes():
+     userID = request.json['userID']
+     movieID = request.json['movieID']
+     
+     newRecord = Userratesmovie(movieID,userID,True)
 
-#     db.session.add(user_rates_movie_schema)
-#     db.session.commit()
-#     # call method to display movie, will display a new unseen movie
+     db.session.add(newRecord)
+     db.session.commit()
+     # call method to display movie, will display a new unseen movie
 
-#     return ({'response':'Good'})
-#     # this method will insert into the user_rates_movie table 
+     return ({'response':'Good'})
+     # this method will insert into the user_rates_movie table 
 
-# # ENDPOINT - User rating no
+ # ENDPOINT - User rating no
 # @application.route('/rate-no', methods = ['PUT'])
 # def rate_yes():
 #     movieID = request.json['movieID']
