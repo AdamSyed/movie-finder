@@ -47,7 +47,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <script src="app.js"></script>
 </head>
- <body>
+
+ <body onload="returnMovie()">>
 
      <div class="pre-content">
          <div class="content">
@@ -57,67 +58,61 @@
                  Select whether you like or dislike the movie shown Below
              </h5>
             
-           <script>
-                returnMovie();
-            </script>
             
-                 <table cellspacing=0 cellpadding=0>
+            <table cellspacing=0 cellpadding=0>
 
-                     <tr>
-                         <td style="text-align: right">
-                             <b style="font-size: 30px">Movie Title:<b>
+                <tr>
+                    <td style="text-align: right">
+                        <b style="font-size: 30px">Movie Title:<b>
 
 
-                         </td>
+                    </td>
 
-                         <!--Pass Title Info into here-->
-                         <td>
-                             <div id="movie_name" type="text">
-                         </div>
-                         </td>
+                    <!--Pass Title Info into here-->
+                    <td>
+                        <p id="movie_name"></p>
+                    </td>
 
-                     </tr>
-                        <!--Pass Genre Info into here-->
-                     <tr>
-                         <td style="text-align: right">
-                             <b style="font-size: 30px">Genre:<b>
-                         </td>
+                </tr>
+                <!--Pass Genre Info into here-->
+                <tr>
+                    <td style="text-align: right">
+                        <b style="font-size: 30px">Genre:<b>
+                    </td>
 
                         
-                         <td>
-                             <div id="movie_genre" type="text">
-                        </div>
-                         </td>
-                     </tr>
+                    <td>
+                        <p id="movie_genre"></p>
+                    </td>
+                </tr>
                            
-                           <!--Pass Director Info into here-->
-                     <tr>
-                         <td style="text-align: right">
-                             <b style="font-size: 30px">Director:<b>
-                         </td>
+                    <!--Pass Director Info into here-->
+                <tr>
+                    <td style="text-align: right">
+                        <b style="font-size: 30px">Director:<b>
+                    </td>
 
                         
-                         <td>
-                             <div id="movie_director" type="text">
-                        </div>
-                         </td>
-                     </tr>  
+                    <td>
+                        <p id="movie_director"></p>
+                    </td>
+                </tr>  
 
 
-                     <!--The OnClick() values for the buttons MUST be changed to accurate ones-->
-                     <tr>
-                         <td>
-                             <input type="button" class="button is-Disliked" value="Dislike" onClick="clickedNo()" style="font-size: 30px; border-color: black; font-weight: bold;color:white; background-color: red; width: 300px">
+                <!--The OnClick() values for the buttons MUST be changed to accurate ones-->
+                <tr>
+                    <td>
+                        <input type="button" class="button is-Disliked" value="Dislike" onClick="clickedNo()" style="font-size: 30px; border-color: black; font-weight: bold;color:white; background-color: red; width: 300px">
 
-                         </td>
+                    </td>
 
-                         <td>
-                             <input type="button" class="button is-Liked" value="Like" onClick="clickedYes()" style="font-size:30px;font-weight:bold;border-color: black; color:white; background-color:green; width:300px">
-                         </td>
-                     </tr>
+                    <td>
+                        <input type="button" class="button is-Liked" value="Like" onClick="clickedYes()" style="font-size:30px;font-weight:bold;border-color: black; color:white; background-color:green; width:300px">
+                    </td>
+                </tr>
 
 
-                 </table>
+            </table>
            
          </div>
      </div>
