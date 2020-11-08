@@ -63,6 +63,8 @@ async function create_user(){
     window.location.replace(redirect);
 }
 
+var activeMovieID = 1;
+
 async function returnMovie() {
     //this function will return the movie
 
@@ -71,8 +73,8 @@ async function returnMovie() {
     var vars = {};
     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
        vars[key] = value;
-   });
-   console.log(vars.id);
+    });
+    console.log(vars.id);
 
     const response = await fetch(RETURN_MOVIE_URL.concat(vars), {
     //const response = await fetch(RETURN_MOVIE_URL.concat(), {
@@ -81,39 +83,36 @@ async function returnMovie() {
     });
     const jsonFile = await response.json();
 
+    //leaving a hardcoded test here that we can swap out for unit tests as needed
+    //jsonFile = {
+    //    "movieID": 9,
+    //    "movie_director": "Rian Johnson",
+    //    "movie_genre": "Comedy",
+    //    "movie_name": "Knives Out",
+    //    "userID": 1
+    //};
 	console.log(jsonFile);
     
 
     //from the jsonFile: 0 = id, 1 = movieID, 2 = movie name, 3 = genre,4 = director; will add 5 = image, 6 to end = actors in later sprints as needed 
 
-    var movieName = jsonFile[2];
-    var genre = jsonFile[3];
-    var director = jsonFile[4];
-
-    //printout for testing. This will currently overwrite the HTML display on this page
-    //document.write(movieName);
-    //document.write("<br>");
-    //document.write(genre);
-    //document.write("<br>");
-    //document.write(director);
-
-    //to add to the html for each output section
-    //<p id="invalid"></p>
 
     //assign the Javascript values to the approporate HTML sections for diplay
-    document.getElementById('movie_name').innerHTML = jsonFile[2];
-    document.getElementById('movie_genre').innerHTML = jsonFIle[3];
-    document.getElementById('movie_director').innerHTML = jsonFIle[4];
-    document.getElementById('movie_id').innerHTML = jsonFile[1];
-    //repeat this for the other displays we want to output
+    document.getElementById('movie_name').innerHTML = jsonFile["movie_name"];
+    document.getElementById('movie_genre').innerHTML = jsonFile["movie_genre"];
+    document.getElementById('movie_director').innerHTML = jsonFile["movie_director"];
 
-    //document.write("<br>");
-    //document.write(genre);
+    //update the global activeMovieID variable to the current movie so that it can be properly allocated when the yes/no buttons are clicked.
+    activeMovieID= jsonFile["movieID"];
    //json.response == 'MovieName'
 }
 
 //function to pass info to backend when user clicks they like the displayed movie
 async function clickedYes() {
+
+    //added a console output to validate that the global activeMovieID variable is working as intended.
+    //@jaad, use the variable activeMovieID to get the movie ID that is currently being rated
+    console.log(activeMovieID);
     const api_endpoint = 'rate-yes';
     // currently assumed these parameters are available
     //movieID
@@ -136,6 +135,7 @@ async function clickedYes() {
     window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id='+json.response);
 }
 async function clickedNo() {
+
     const api_endpoint = 'rate-no';
     // currently assumed these parameters are available
     //movieID

@@ -3,44 +3,38 @@
 <head>
     <script src="app.js"></script>
 </head>
-<body>
-    <p id="movie_id"></p>
+<body onload="returnMovie()">
+    <p hidden id="movie_id"></p>
     <div class="displayMovie">
         <h2> Are you interested in watching this movie?</h2>
         <body>
-            <script>
-                returnMovie();
-            </script>
+            <form name="credentials">
+                <table cellspacing=0 cellpadding=0>
+                    <tr>
+                        <td>
+                            <p id="movie_name"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p id="movie_genre"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p id="movie_director"></p>
+                        </td>
+                    </tr>
+                </table>
+            </form>
         </body>
-        <form name="credentials">
-            <table cellspacing=0 cellpadding=0>
-                <tr>
-                    <td>
-                        <div id="movie_name" type="text">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div id="movie_genre" type="text">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div id="movie_director" type="text">
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </form>
     </div>
 
     <div class="ratingMechanism">
         <h2> This section will contain the yes and no buttons to choose whether the user is interested in a movie or not.</h2>
-
         <!--Button for Yes-->
         <button type="button" onclick="clickedYes()">I like this movie!</button>
+        <p hidden id="test"></p>
         <!--Button for No-->
         <button type="button" onclick="clickedNo()">I don't like this movie!</button>
     </div>

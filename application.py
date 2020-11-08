@@ -330,9 +330,10 @@ def movie_option():
     #add in a try/except in case all movies have been rated
     try:
         nextMovie = Movie.query.get(unratedMovies[0])
-        movieData = [userID, nextMovie.movieID, nextMovie.name, nextMovie.genre, nextMovie.director]
+        #clean this up so that we are displaying in JSON format instead of arrays bc that is more intuitive
+        movieData = {'userID':userID, 'movieID':nextMovie.movieID, 'movie_name':nextMovie.name, 'movie_genre':nextMovie.genre, 'movie_director':nextMovie.director}
     except:
-        movieData = [userID, 'N/A', 'N/A', 'N/A', 'N/A']
+        movieData = {'userID':userID, 'movieID':'N/A', 'movie_name':'N/A', 'movie_genre':'N/A', 'movie_director':'N/A'}
     
     #finally, we return the results
     return jsonify(movieData)
