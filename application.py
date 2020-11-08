@@ -364,12 +364,12 @@ def movie_option():
  # ENDPOINT - User rating yes
 @application.route('/rate-yes', methods = ['PUT'])
 def rate_yes():
-     movieID = request.json['movieID']
      userID = request.json['userID']
-    
-     user_rates_movie_schema = User_Rates_Movie(movieID,userID,True)
+     movieID = request.json['movieID']
+     
+     newRecord = Userratesmovie(movieID,userID,True)
 
-     db.session.add(user_rates_movie_schema)
+     db.session.add(newRecord)
      db.session.commit()
      # call method to display movie, will display a new unseen movie
 
@@ -395,5 +395,5 @@ def rate_yes():
 # Run server
 if __name__ == '__main__':
 
-    application.run(host='0.0.0.0')
-    #application.run(debug=True)
+    #application.run(host='0.0.0.0')
+    application.run(debug=True)
