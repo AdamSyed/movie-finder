@@ -1,28 +1,128 @@
 <!DOCTYPE html>
 <html>
-<head>
+
+<<head>
+    <!--Put  Tab Title Here-->
+    <title>Rate Movies</title>
+    <!--Set General Style Settings-->
+    <style>
+
+        .content {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            -moz-transform: translateX(-50%) translateY(-50%);
+            -webkit-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+            width: 80;
+            margin: auto;
+        }
+
+        .pre-content {
+            background-color: #F9F9F9;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        label {
+            font-weight: normal !important;
+        }
+
+        table {
+            border-collapse: collapse !important;
+        }
+
+        tr {
+            border: none !important;
+        }
+
+        td {
+            border: none !important;
+        }
+      
+        .input {
+            height: 30px !important;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <script src="app.js"></script>
 </head>
-<body>
+ <body>
 
-    <div class="displayMovie">
-        <h2> Are you interested in watching this movie?</h2>
-        <body>
-            <script>
+     <div class="pre-content">
+         <div class="content">
+            
+             <h1 style="font-size:40px; color:hsl(261, 76%, 46%); font-weight:bold;margin:0 auto;width:100%;text-align:center !important;padding-bottom:10px;">Rate Movies</h1>
+             <h5 class="subtitle is-5" style="text-align: center; padding-bottom: 0px !important;margin-bottom:20px !important">
+                 Select whether you like or dislike the movie shown Below
+             </h5>
+            
+           <script>
                 returnMovie();
             </script>
-        </body>
-        <h2> This is where the movie to choose will be inserted.</h2>
-    </div>
+            
+                 <table cellspacing=0 cellpadding=0>
 
-    <div class="ratingMechanism">
-        <h2> This section will contain the yes and no buttons to choose whether the user is interested in a movie or not.</h2>
+                     <tr>
+                         <td style="text-align: right">
+                             <b style="font-size: 30px">Movie Title:<b>
 
-        <!--Button for Yes-->
-        <button type="button" onclick="clickedYes()">I like this movie!</button>
-        <!--Button for No-->
-        <button type="button" onclick="clickedNo()">I don't like this movie!</button>
-    </div>
- 
-</body>
+
+                         </td>
+
+                         <!--Pass Title Info into here-->
+                         <td>
+                             <div id="movie_name" type="text">
+                         </div>
+                         </td>
+
+                     </tr>
+                        <!--Pass Genre Info into here-->
+                     <tr>
+                         <td style="text-align: right">
+                             <b style="font-size: 30px">Genre:<b>
+                         </td>
+
+                        
+                         <td>
+                             <div id="movie_genre" type="text">
+                        </div>
+                         </td>
+                     </tr>
+                           
+                           <!--Pass Director Info into here-->
+                     <tr>
+                         <td style="text-align: right">
+                             <b style="font-size: 30px">Director:<b>
+                         </td>
+
+                        
+                         <td>
+                             <div id="movie_director" type="text">
+                        </div>
+                         </td>
+                     </tr>  
+
+
+                     <!--The OnClick() values for the buttons MUST be changed to accurate ones-->
+                     <tr>
+                         <td>
+                             <input type="button" class="button is-Disliked" value="Dislike" onClick="clickedNo()" style="font-size: 30px; border-color: black; font-weight: bold;color:white; background-color: red; width: 300px">
+
+                         </td>
+
+                         <td>
+                             <input type="button" class="button is-Liked" value="Like" onClick="clickedYes()" style="font-size:30px;font-weight:bold;border-color: black; color:white; background-color:green; width:300px">
+                         </td>
+                     </tr>
+
+
+                 </table>
+           
+         </div>
+     </div>
+
+
+ </body>
+
 </html>
