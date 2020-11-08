@@ -16,29 +16,23 @@
             transform: translateX(-50%) translateY(-50%);
             margin: auto;
         }
-
         .pre-content {
             background-color: #F9F9F9;
             width: 100vw;
             height: 100vh;
         }
-
         label {
             font-weight: normal !important;
         }
-
         table {
             border-collapse: collapse !important;
         }
-
         tr {
             border: none !important;
         }
-
         td {
             border: none !important;
         }
-      
         .input {
             height: 30px !important;
         }
@@ -95,16 +89,24 @@
                          <p id="movie_director"></p>
                      </td>
                  </tr>
-
+                 <!--
+                     <tr>
+                         <td colspan="2">
+                             <input type="button" class="Trailer Button" value="See Trailer" onClick="viewTrailer()" style="font-size:30px;font-weight:bold;border-color: black; color:white; background-color:blue; width:100%; padding-top:20px;
+    padding-bottom:20px">
+                         </td>
+                     </tr>
+                     -->
                  <tr>
-                     <td colspan="2">
-                         <input type="button" class="Trailer Button" value="See Trailer" onClick="seeTrailer()" style="font-size:30px;font-weight:bold;border-color: black; color:white; background-color:blue; width:100%; padding-top:20px;
-padding-bottom:20px">
+                     <td>
+                         <input type="button" class="IMDB Button" value="View IMDb Page" onClick="viewIMDB()" style="font-size: 30px; border-color: black; font-weight: bold;color:white; background-color: blue; width: 300px">
+
+                     </td>
+
+                     <td>
+                         <input type="button" class="Trailer Button" value="View Trailer" onClick="viewTrailer()" style="font-size:30px;font-weight:bold;border-color: black; color:white; background-color: blue; width:300px">
                      </td>
                  </tr>
-
-
-                     <!--The OnClick() values for the buttons MUST be changed to accurate ones-->
                  <tr>
                      <td>
                          <input type="button" class="button is-Disliked" value="Dislike" onClick="clickedNo()" style="font-size: 30px; border-color: black; font-weight: bold;color:white; background-color: red; width: 300px">

@@ -63,7 +63,9 @@ async function create_user(){
     window.location.replace(redirect);
 }
 
+// declaring global varibles to be used across functions
 var activeMovieID = 1;
+var activeMovieName = "Knives Out";
 
 async function returnMovie() {
     //this function will return the movie
@@ -103,7 +105,8 @@ async function returnMovie() {
     document.getElementById('movie_director').innerHTML = jsonFile["movie_director"];
 
     //update the global activeMovieID variable to the current movie so that it can be properly allocated when the yes/no buttons are clicked.
-    activeMovieID= jsonFile["movieID"];
+    activeMovieID = jsonFile["movieID"];
+    activeMovieName = jsonFile["movie_name"];
    //json.response == 'MovieName'
 }
 
@@ -131,35 +134,80 @@ async function clickedYes() {
         },
         body:JSON.stringify({userID:userID,movieID:movieID})
     });
-
     const resp = await response.json();
     console.log(resp);
-
     //window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response);
-    //window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=1');
 }
 
+//function to pass info to backend when user clicks they dislike the displayed movie
 async function clickedNo() {
+    //Grab the active userID from URL
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+    //log IDs
+    console.log(vars.id);
+    console.log(activeMovieID);
 
     const api_endpoint = 'rate-no';
-    // currently assumed these parameters are available
-    //movieID
-    //userID
-    //will need to change following based on rafiq's code
 
-    var movieID = 8;
-    var userID = 1;
+    //set variables to IDs
+    var movieID = activeMovieID;
+    var userID = vars.id;
 
     const response = await fetch(API_URL.concat(api_endpoint), {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ userID: userID, movieID: movieID})
+        body: JSON.stringify({ userID: userID, movieID: movieID })
     });
+    const resp = await response.json();
+    console.log(resp);
+    //window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response);
+}
 
-    const json = await response.json();
-    
-    window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id='+json.response);
+async function clickedRating(rating) {
+    //Grab the active userID from URL
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+    //log IDs
+    console.log(vars.id);
+    console.log(activeMovieID);
+    console.log(rating);
 
+    const api_endpoint = 'rated';
+
+    //set variables to IDs
+    var movieID = activeMovieID;
+    var userID = vars.id;
+    var rated = rating;
+
+    const response = await fetch(API_URL.concat(api_endpoint), {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userID: userID, movieID: movieID,rated: rated })
+    });
+    const resp = await response.json();
+    console.log(resp);
+    //window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response);
+}
+
+
+async function viewIMDB() {
+    var movieSearch = activeMovieName.replace(" ", "+");
+    var imdb = "https://www.imdb.com/find?q=" + movieSearch;
+    console.log(imdb);
+    window.open(imdb);
+}
+async function viewTrailer() {
+    var movieSearch = activeMovieName.replace(" ", "+");
+    var yt = "https://www.youtube.com/results?search_query=" + movieSearch + "+trailer";
+    console.log(yt);
+    window.open(yt);
 }
