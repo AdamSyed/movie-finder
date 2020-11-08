@@ -63,7 +63,9 @@ async function create_user(){
     window.location.replace(redirect);
 }
 
+// declaring global varibles to be used across functions
 var activeMovieID = 1;
+var activeMovieName = "A String";
 
 async function returnMovie() {
     //this function will return the movie
@@ -103,7 +105,8 @@ async function returnMovie() {
     document.getElementById('movie_director').innerHTML = jsonFile["movie_director"];
 
     //update the global activeMovieID variable to the current movie so that it can be properly allocated when the yes/no buttons are clicked.
-    activeMovieID= jsonFile["movieID"];
+    activeMovieID = jsonFile["movieID"];
+    activeMovieName = jsonFile["movie_name"];
    //json.response == 'MovieName'
 }
 
@@ -163,4 +166,11 @@ async function clickedNo() {
     const resp = await response.json();
     console.log(resp);
     //window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response);
+}
+
+async function viewTrailer() {
+    var movieSearch = activeMovieName.replace(" ", "+");
+    var yt = "https://www.youtube.com/results?search_query=" + movieSearch + "+trailer";
+    console.log(yt);
+    window.open(yt);
 }
