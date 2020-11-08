@@ -22,9 +22,9 @@
 
         /* label {
             font-weight: normal !important;
-        }
+        } */
 
-        table {
+        /* table {
             border-collapse: collapse !important;
         }
 
@@ -34,14 +34,14 @@
 
         td {
             border: none !important;
-        }
+        } */
 
-        .input {
+        /* .input {
             height: 30px !important;
         } */
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-    <script src="app.js"></script>
+    <script src="edit-preferences.js"></script>
 </head>
 <body>
     <div class="pre-content">
@@ -49,12 +49,10 @@
             <h5 class = "subtitle is-4">
                 Below are the movies you have rated.
             </h5>
-            <table style = "width:100%">
-              <tr>
-                  <div id="dynamic_results" type="text">
-                  </div>
-              </tr>
-            </table>
+            <form>
+                <div id="dynamic_results">
+                </div>
+            </form>
         </div>
     </div>
 </body>
