@@ -131,35 +131,36 @@ async function clickedYes() {
         },
         body:JSON.stringify({userID:userID,movieID:movieID})
     });
-
     const resp = await response.json();
     console.log(resp);
-
     //window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response);
-    //window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=1');
 }
 
+//function to pass info to backend when user clicks they dislike the displayed movie
 async function clickedNo() {
+    //Grab the active userID from URL
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+    //log IDs
+    console.log(vars.id);
+    console.log(activeMovieID);
 
     const api_endpoint = 'rate-no';
-    // currently assumed these parameters are available
-    //movieID
-    //userID
-    //will need to change following based on rafiq's code
 
-    var movieID = 8;
-    var userID = 1;
+    //set variables to IDs
+    var movieID = activeMovieID;
+    var userID = vars.id;
 
     const response = await fetch(API_URL.concat(api_endpoint), {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ userID: userID, movieID: movieID})
+        body: JSON.stringify({ userID: userID, movieID: movieID })
     });
-
-    const json = await response.json();
-    
-    window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id='+json.response);
-
+    const resp = await response.json();
+    console.log(resp);
+    //window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response);
 }
