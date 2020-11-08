@@ -391,6 +391,22 @@ def rate_no():
      return ({'response':'Good'})
      # this method will insert into the user_rates_movie table 
 
+# ENDPOINT - User rates movie
+# This is an endpoint to consolidate the Yes and No separate endpoints, it will handle both
+@application.route('/rated', methods = ['PUT'])
+def rate_no():
+     userID = request.json['userID']
+     movieID = request.json['movieID']
+     rated = request.json['rated']
+     
+     newRecord = Userratesmovie(movieID,userID,rated)
+
+     db.session.add(newRecord)
+     db.session.commit()
+     # call method to display movie, will display a new unseen movie
+
+     return ({'response':'Good'})
+     # this method will insert into the user_rates_movie table 
 
 # Run server
 if __name__ == '__main__':

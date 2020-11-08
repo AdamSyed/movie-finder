@@ -65,7 +65,7 @@ async function create_user(){
 
 // declaring global varibles to be used across functions
 var activeMovieID = 1;
-var activeMovieName = "A String";
+var activeMovieName = "Knives Out";
 
 async function returnMovie() {
     //this function will return the movie
@@ -168,6 +168,43 @@ async function clickedNo() {
     //window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response);
 }
 
+async function clickedRating(rating) {
+    //Grab the active userID from URL
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+    //log IDs
+    console.log(vars.id);
+    console.log(activeMovieID);
+    console.log(rating);
+
+    const api_endpoint = 'rated';
+
+    //set variables to IDs
+    var movieID = activeMovieID;
+    var userID = vars.id;
+    var rated = rating;
+
+    const response = await fetch(API_URL.concat(api_endpoint), {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userID: userID, movieID: movieID,rated: rated })
+    });
+    const resp = await response.json();
+    console.log(resp);
+    //window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response);
+}
+
+
+async function viewIMDB() {
+    var movieSearch = activeMovieName.replace(" ", "+");
+    var imdb = "https://www.imdb.com/find?q=" + movieSearch;
+    console.log(imdb);
+    window.open(imdb);
+}
 async function viewTrailer() {
     var movieSearch = activeMovieName.replace(" ", "+");
     var yt = "https://www.youtube.com/results?search_query=" + movieSearch + "+trailer";
