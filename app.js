@@ -34,7 +34,7 @@ async function login(){
     if (json.response == 'Invalid credentials.'){
         document.getElementById('invalid').innerHTML = 'Invalid credentials';
     } else {
-        redirectPost('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html', json.response);
+        window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response);
     }
 }
 
@@ -58,7 +58,7 @@ async function create_user(){
     });
     const json = await response.json();
     console.log(json.response);
-    var redirect = 'http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id='+json.response;
+    var redirect = 'http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response;
     console.log(redirect);
     window.location.replace(redirect);
 }
