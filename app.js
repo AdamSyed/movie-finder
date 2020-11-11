@@ -144,6 +144,7 @@ async function clickedYes() {
     const resp = await response.json();
     console.log(resp);
     //window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response);
+    window.location.reload();
 }
 
 //function to pass info to backend when user clicks they dislike the displayed movie
@@ -168,11 +169,12 @@ async function clickedNo() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ userID: userID, movieID: movieID })
+        body: JSON.stringify({ userID:userID, movieID:movieID })
     });
     const resp = await response.json();
     console.log(resp);
     //window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response);
+    window.location.reload();
 }
 
 async function clickedRating(rating) {
@@ -203,6 +205,7 @@ async function clickedRating(rating) {
     const resp = await response.json();
     console.log(resp);
     //window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response);
+    window.location.reload();
 }
 
 
