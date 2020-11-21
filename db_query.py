@@ -10,7 +10,10 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
-mycursor.execute("select * from userratesmovie where userID=2 or userID=1;")
+#mycursor.execute("select * from userratesmovie where userID=2;")
+mycursor.execute("select * from userratesmovie where userID=6;")
+#mycursor.execute("select * from movie;")
+#mycursor.execute("select * from user")
 
 myresult = mycursor.fetchall()
 

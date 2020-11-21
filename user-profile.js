@@ -35,12 +35,12 @@ async function update(){
     var email = document.info.email.value;
     var password = document.info.password.value;
 
-    const response = await fetch(API_URL.concat(api_endpoint,vars.id), {
+    const response = await fetch(API_URL.concat(api_endpoint), {
         method: 'PUT',
         headers: {
             'Content-Type':'application/json'
         },
-        body: JSON.stringify({firstname:firstname,lastname:lastname,email:email,password:password})
+        body: JSON.stringify({firstname:firstname,lastname:lastname,email:email,password:password,id:vars.id})
     });
     const json = await response.json();
     console.log(json.response);

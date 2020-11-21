@@ -57,7 +57,7 @@ async function update(){
         headers: {
             'Content-Type':'application/json'
         },
-        body: JSON.stringify({firstname:firstname,lastname:lastname,email:email,password:password})
+        body: JSON.stringify({firstname:firstname,lastname:lastname,email:email,password:password,id:vars.id})
     });
     const json = await response.json();
     console.log(json.response);
