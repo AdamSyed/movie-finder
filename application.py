@@ -361,7 +361,7 @@ def update_rating():
 #    return jsonify(movieData)
 
 
- # ENDPOINT - User rating yes
+ # ENDPOINT - User rating YES
 @application.route('/rate-yes', methods = ['PUT'])
 def rate_yes():
      userID = request.json['userID']
@@ -375,6 +375,7 @@ def rate_yes():
 
      return ({'response':'Good'})
      # this method will insert into the user_rates_movie table 
+
 
 # ENDPOINT - Get all movie rated by a user
 @application.route('/my-groups',methods=['POST'])
@@ -394,21 +395,37 @@ def get_groups():
     return jsonify(output)
 
 
- # ENDPOINT - User rating no
-# @application.route('/rate-no', methods = ['PUT'])
-# def rate_yes():
-#     movieID = request.json['movieID']
-#     userID = request.json['userID']
-    
-#     user_rates_movie_schema = User_Rates_Movie(movieID,userID,False)
+# ENDPOINT - User rating NO
+@application.route('/rate-no', methods = ['PUT'])
+def rate_no():
+     userID = request.json['userID']
+     movieID = request.json['movieID']
+     
+     newRecord = Userratesmovie(movieID,userID,False)
 
-#     db.session.add(user_rates_movie_schema)
-#     db.session.commit()
-#     # call method to display movie, will display a new unseen movie
+     db.session.add(newRecord)
+     db.session.commit()
+     # call method to display movie, will display a new unseen movie
 
-#     return ({'response':'Good'})
-#     # this method will insert into the user_rates_movie table 
+     return ({'response':'Good'})
+     # this method will insert into the user_rates_movie table 
 
+# ENDPOINT - User rates movie
+# This is an endpoint to consolidate the Yes and No separate endpoints, it will handle both
+@application.route('/rated', methods = ['PUT'])
+def rated():
+     userID = request.json['userID']
+     movieID = request.json['movieID']
+     rated = request.json['rated']
+     
+     newRecord = Userratesmovie(movieID,userID,rated)
+
+     db.session.add(newRecord)
+     db.session.commit()
+     # call method to display movie, will display a new unseen movie
+
+     return ({'response':'Good'})
+     # this method will insert into the user_rates_movie table 
 
 # Run server
 if __name__ == '__main__':
