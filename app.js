@@ -34,7 +34,8 @@ async function login(){
     if (json.response == 'Invalid credentials.'){
         document.getElementById('invalid').innerHTML = 'Invalid credentials';
     } else {
-        redirectPost('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html', json.response);
+        var redirect = 'http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response;
+        window.location.replace(redirect);
     }
 }
 
@@ -72,17 +73,23 @@ async function returnMovie() {
 
     // const RETURN_MOVIE_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/rating/1';
     const RETURN_MOVIE_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/rating';
+    //console.log("reached here");
     var vars = {};
     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
        vars[key] = value;
     });
-    console.log(vars.id);
+    console.log(vars.id); //gets the userID that has been passed
 
-    const response = await fetch(RETURN_MOVIE_URL.concat(vars), {
-    //const response = await fetch(RETURN_MOVIE_URL.concat(), {
-    //const response = await fetch(RETURN_MOVIE_URL, {
-        method: 'POST' 
+    //const response = await fetch(RETURN_MOVIE_URL.concat(vars), {
+    const response = await fetch(RETURN_MOVIE_URL, {
+    
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id: vars.id})
     });
+
     const jsonFile = await response.json();
 
     //leaving a hardcoded test here that we can swap out for unit tests as needed
@@ -137,6 +144,7 @@ async function clickedYes() {
     const resp = await response.json();
     console.log(resp);
     //window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response);
+    window.location.reload();
 }
 
 //function to pass info to backend when user clicks they dislike the displayed movie
@@ -161,11 +169,12 @@ async function clickedNo() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ userID: userID, movieID: movieID })
+        body: JSON.stringify({ userID:userID, movieID:movieID })
     });
     const resp = await response.json();
     console.log(resp);
     //window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response);
+    window.location.reload();
 }
 
 async function clickedRating(rating) {
@@ -196,6 +205,7 @@ async function clickedRating(rating) {
     const resp = await response.json();
     console.log(resp);
     //window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response);
+    window.location.reload();
 }
 
 
