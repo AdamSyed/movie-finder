@@ -5,7 +5,8 @@ async function create_group(){
     
     var group_name = document.info.group_name.value;
 
-    var vars = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
        vars[key] = value;
     });
     console.log(vars.id); //gets the userID that has been passed
