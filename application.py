@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-import numpy as np
+#import numpy as np
 
 # Initiate application
 application = Flask(__name__)
@@ -318,47 +318,47 @@ def update_rating():
     return jsonify(output)
 
 
-@application.route('/rating', methods = ['POST'])
-def movie_option():
-    userID = request.json['id']
+#@application.route('/rating', methods = ['POST'])
+#def movie_option():
+#    userID = request.json['id']
 
-    #this endpoint will take the user id and look through all the movies in the database that do not have a Yes/No choice made already by the user
-    #it will then output one of those undecided options for the movie
+#    #this endpoint will take the user id and look through all the movies in the database that do not have a Yes/No choice made already by the user
+#    #it will then output one of those undecided options for the movie
 
-    #first query to get the user that is currently logged in
-    m = User.query.filter_by(userID=userID).first()
+#    #first query to get the user that is currently logged in
+#    m = User.query.filter_by(userID=userID).first()
     
-    #logic for finding a movie
-    #1. Get a list of all rated movies for a user and we convert this into a list of movieIds only
+#    #logic for finding a movie
+#    #1. Get a list of all rated movies for a user and we convert this into a list of movieIds only
     
-    #declare list variable to add movieIDs to
-    ratedMovies = []
+#    #declare list variable to add movieIDs to
+#    ratedMovies = []
     
-    #2. For each movie-user-rated relationship, we append the movieID to out list of ratedMovies
-    for i in m.moviesRated:
-        ratedMovies.append(i.movieID)
+#    #2. For each movie-user-rated relationship, we append the movieID to out list of ratedMovies
+#    for i in m.moviesRated:
+#        ratedMovies.append(i.movieID)
 
-    #3. Get a list of all the movies
-    allMovieID = []
-    allMovies = Movie.query.all()
-    for j in allMovies:
-        allMovieID.append(j.movieID)
+#    #3. Get a list of all the movies
+#    allMovieID = []
+#    allMovies = Movie.query.all()
+#    for j in allMovies:
+#        allMovieID.append(j.movieID)
 
-    #4. Find the movies that are in the list of all movies but not in the list of the movies rated by the user (this can be done by comparing the 2 lists)
-    unratedMovies = np.setdiff1d(allMovieID,ratedMovies)
+#    #4. Find the movies that are in the list of all movies but not in the list of the movies rated by the user (this can be done by comparing the 2 lists)
+#    unratedMovies = np.setdiff1d(allMovieID,ratedMovies)
 
-    #5. Gather the relevant details of the first movie on that list from 4 to output
-    #right now we use a simple selection of the first movie on the list.  Later on, if we feel that more complex logic is needed to create a fair representation, then that can be changed below
-    #add in a try/except in case all movies have been rated
-    try:
-        nextMovie = Movie.query.get(unratedMovies[0])
-        #clean this up so that we are displaying in JSON format instead of arrays bc that is more intuitive
-        movieData = {'userID':userID, 'movieID':nextMovie.movieID, 'movie_name':nextMovie.name, 'movie_genre':nextMovie.genre, 'movie_director':nextMovie.director}
-    except:
-        movieData = {'userID':userID, 'movieID':'N/A', 'movie_name':'N/A', 'movie_genre':'N/A', 'movie_director':'N/A'}
+#    #5. Gather the relevant details of the first movie on that list from 4 to output
+#    #right now we use a simple selection of the first movie on the list.  Later on, if we feel that more complex logic is needed to create a fair representation, then that can be changed below
+#    #add in a try/except in case all movies have been rated
+#    try:
+#        nextMovie = Movie.query.get(unratedMovies[0])
+#        #clean this up so that we are displaying in JSON format instead of arrays bc that is more intuitive
+#        movieData = {'userID':userID, 'movieID':nextMovie.movieID, 'movie_name':nextMovie.name, 'movie_genre':nextMovie.genre, 'movie_director':nextMovie.director}
+#    except:
+#        movieData = {'userID':userID, 'movieID':'N/A', 'movie_name':'N/A', 'movie_genre':'N/A', 'movie_director':'N/A'}
     
-    #finally, we return the results
-    return jsonify(movieData)
+#    #finally, we return the results
+#    return jsonify(movieData)
 
 
  # ENDPOINT - User rating yes
@@ -375,6 +375,24 @@ def rate_yes():
 
      return ({'response':'Good'})
      # this method will insert into the user_rates_movie table 
+
+# ENDPOINT - Get all movie rated by a user
+@application.route('/my-groups',methods=['POST'])
+def get_groups():
+    id = request.json['id']
+    
+    user = User.query.filter_by(userID=id).first()
+
+    if bool(user) == True:
+        output = []
+        for m in user.groups:
+            group = Grp.query.filter_by(groupID = m.groupID).first()
+            output.append({'groupName':group.name,'groupID':group.groupID})
+    else:
+        output = {"response": "Invalid ID."}
+
+    return jsonify(output)
+
 
  # ENDPOINT - User rating no
 # @application.route('/rate-no', methods = ['PUT'])
@@ -395,5 +413,5 @@ def rate_yes():
 # Run server
 if __name__ == '__main__':
 
-    application.run(host='0.0.0.0')
-    #application.run(debug=True)
+    #application.run(host='0.0.0.0')
+    application.run(debug=True)
