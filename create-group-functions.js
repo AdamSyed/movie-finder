@@ -13,20 +13,22 @@ async function create_group(){
     
     const api_endpoint = 'create-group';
     
-    const response = await fetch(API_URL.concat(api_endpoint), {
-    
+    const CREATE_GROUP_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/create-group';   
+
+    //const response = await fetch(API_URL.concat(api_endpoint), {
+    const response = await fetch(CREATE_GROUP_URL, {
         method: 'POST', 
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({id: vars.id,group_name:vars.group_name})
+        body: JSON.stringify({id: vars.id,group_name:group_name})
     });
 
     const resp = await response.json();
     console.log(resp);
 
     //REPLACE THIS REDIRECT SECTION WITH THE HTML OF THE MY GROUPS PAGES
-    //var redirect = 'http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id='+json.response;
+    //var redirect = 'http://findusamovie.s3-website-us-east-1.amazonaws.com/my-groups.html?id='+json.response;
     //console.log(redirect);
     //window.location.replace(redirect);
 };
