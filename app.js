@@ -49,18 +49,26 @@ async function create_user(){
     var email = document.info.email.value;
     var password = document.info.password.value;
 
-    const response = await fetch(API_URL.concat(api_endpoint), {
-        method: 'PUT',
-        headers: {
-            'Content-Type':'application/json'
-        },
-        body: JSON.stringify({first_name:first_name,last_name:last_name,email:email,password:password})
-    });
-    const json = await response.json();
-    console.log(json.response);
-    var redirect = 'http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response;
-    console.log(redirect);
-    window.location.replace(redirect);
+    if (first_name == '' | last_name == '' | email == '' | password == ''){
+        document.getElementById('invalid').innerHTML = 'Please fill in all of the fields.';
+    } else{
+        const response = await fetch(API_URL.concat(api_endpoint), {
+            method: 'PUT',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({first_name:first_name,last_name:last_name,email:email,password:password})
+        });
+        const json = await response.json();
+        if (json.response == 'email_dupplicate'){
+            document.getElementById('invalid').innerHTML = 'The email you provided already has an account associated with it.';
+        }else{
+            console.log(json.response);
+            var redirect = 'http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + json.response;
+            console.log(redirect);
+            window.location.replace(redirect);
+        }
+    }
 }
 
 // declaring global varibles to be used across functions
@@ -210,4 +218,13 @@ async function viewTrailer() {
     var yt = "https://www.youtube.com/results?search_query=" + movieSearch + "+trailer";
     console.log(yt);
     window.open(yt);
+}
+
+function redirect(page) {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+       vars[key] = value;
+    });
+
+    window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/'+ page + '.html?id=' + vars.id);
 }
