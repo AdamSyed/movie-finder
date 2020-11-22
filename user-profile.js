@@ -35,19 +35,32 @@ async function update(){
     var email = document.info.email.value;
     var password = document.info.password.value;
 
-    const response = await fetch(API_URL.concat(api_endpoint), {
-        method: 'PUT',
-        headers: {
-            'Content-Type':'application/json'
-        },
-        body: JSON.stringify({firstname:firstname,lastname:lastname,email:email,password:password,id:vars.id})
+    if (first_name == '' | last_name == '' | email == '' | password == ''){
+        document.getElementById('invalid').innerHTML = 'Please fill in all of the fields.';
+    } else{
+        const response = await fetch(API_URL.concat(api_endpoint), {
+            method: 'PUT',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({firstname:firstname,lastname:lastname,email:email,password:password,id:vars.id})
+        });
+        const json = await response.json();
+        console.log(json.response);
+        
+        if (json.response == 'Success'){
+            document.getElementById('saved').innerHTML = "We've updated your profile!";
+        } else {
+            document.getElementById('saved').innerHTML = "We were unable to succesfully update your profile, please contact our support team.";
+        }
+    }   
+}
+
+function redirect(page) {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+       vars[key] = value;
     });
-    const json = await response.json();
-    console.log(json.response);
-    
-    if (json.response == 'Success'){
-        document.getElementById('saved').innerHTML = "We've updated your profile!";
-    } else {
-        document.getElementById('saved').innerHTML = "We were unable to succesfully update your profile, please contact our support team.";
-    }
+
+    window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/'+ page + '.html?id=' + vars.id);
 }
