@@ -75,8 +75,9 @@ class Grp(db.Model):
     users = db.relationship('Useringroup', backref='grp', lazy=True)
     userblacklistvotes =  db.relationship('Usermovieblacklistvote', backref='grp', lazy=True)
 
-    def __init__(self,groupID,name,blacklist_threshold,max_size):
-        self.groupID = groupID
+    #def __init__(self,groupID,name,blacklist_threshold,max_size):
+    def __init__(self,name,blacklist_threshold,max_size):
+        #self.groupID = groupID
         self.name = name
         self.blacklist_threshold = blacklist_threshold
         self.max_size = max_size
@@ -395,20 +396,37 @@ def rate_no():
 
 # ENDPOINT - User rates movie
 # This is an endpoint to consolidate the Yes and No separate endpoints, it will handle both
-# @application.route('/rated', methods = ['PUT'])
-# def rate_no():
-#      userID = request.json['userID']
-#      movieID = request.json['movieID']
-#      rated = request.json['rated']
+@application.route('/rated', methods = ['PUT'])
+def rated():
+     userID = request.json['userID']
+     movieID = request.json['movieID']
+     rated = request.json['rated']
      
-#      newRecord = Userratesmovie(movieID,userID,rated)
+     newRecord = Userratesmovie(movieID,userID,rated)
 
-#      db.session.add(newRecord)
-#      db.session.commit()
-#      # call method to display movie, will display a new unseen movie
+     db.session.add(newRecord)
+     db.session.commit()
+     # call method to display movie, will display a new unseen movie
 
-#      return ({'response':'Good'})
-#      # this method will insert into the user_rates_movie table 
+     return ({'response':'Good'})
+     # this method will insert into the user_rates_movie table 
+
+
+@application.route('/create-group', methods = ['POST'])
+def new_group():
+    userID = request.json['id']
+    groupName = request.json['group_name']
+    #first create a group with that group name
+    newGroup = Grp(groupName,None,None)
+    db.session.add(newGroup)
+    db.session.commit()
+
+    #then, add the user to that group
+    addToNewGroup = Useringroup(newGroup.groupID,userID, None, None)
+    db.session.add(addToNewGroup)
+    db.session.commit()
+    
+    return({'response':'Good'})
 
 # Run server
 if __name__ == '__main__':
