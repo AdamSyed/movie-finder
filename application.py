@@ -429,10 +429,10 @@ def new_group():
     return({'response':'Good'})
 
 # ENDPOINT - Group Home Page
-@application.route('/group_info', methods = ['GET'])
+@application.route('/group_info', methods = ['POST'])
 def thisGroup():
     # userID = request.json['userID']
-    groupID = 1 #request.json['groupID']
+    groupID = request.json['groupID']
     #group = Grp.query.get(groupID)
     group = Grp.query.filter_by(groupID=groupID).first()
     
@@ -462,5 +462,5 @@ def thisGroup():
 # Run server
 if __name__ == '__main__':
 
-    #application.run(host='0.0.0.0')
-    application.run(debug=True)
+    application.run(host='0.0.0.0')
+    #application.run(debug=True)
