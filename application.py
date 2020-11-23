@@ -394,7 +394,7 @@ def rate_no():
 # ENDPOINT - User rates movie
 # This is an endpoint to consolidate the Yes and No separate endpoints, it will handle both
 @application.route('/rated', methods = ['PUT'])
-def rate_no():
+def rated():
      userID = request.json['userID']
      movieID = request.json['movieID']
      rated = request.json['rated']
