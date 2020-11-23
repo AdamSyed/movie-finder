@@ -237,15 +237,17 @@ def create():
     first_name = request.json['first_name']
     last_name = request.json['last_name']
     password = request.json['password']
-    
-    user = User(email,password,first_name,last_name)
 
-    db.session.add(user)
-    db.session.commit()
+    does_exists = User.query.filter_by(email = email).first()
+    if(does_exists == None):    
+        user = User(email,password,first_name,last_name)
+        db.session.add(user)
+        db.session.commit()
 
-    user_id = User.query.filter_by(email = email).first().userID
-    output = {'response':user_id}
-
+        user_id = User.query.filter_by(email = email).first().userID
+        output = {'response':user_id}
+    else:
+        output = {'response':'email_dupplicate'}
     return jsonify(output)
 
 # ENDPOINT - Get user preferences
@@ -291,7 +293,7 @@ def all_movie_ratings():
         output = []
         for m in user.moviesRated:
             movie = Movie.query.filter_by(movieID = m.movieID).first()
-            output.append({'movieName':movie.name,'isLiked':m.isLiked})
+            output.append({'movieName':movie.name,'isLiked':m.isLiked,'movieID':movie.movieID})
     else:
         output = {"response": "Invalid ID."}
 
