@@ -5,8 +5,8 @@ window.onload = async function(){
     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
         vars[key] = value;
     });
-    const api_endpoint = 'all-movie-ratings';
 
+    const api_endpoint = 'all-movie-ratings';
 
     const response = await fetch(API_URL.concat(api_endpoint), {
           method: 'POST',
@@ -83,4 +83,12 @@ async function update_preferences(){
     } else {
         document.getElementById('saved').innerHTML = "We were unable to succesfully update your movie ratings, please contact our support team.";
     }
+}
+function redirect(page) {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+       vars[key] = value;
+    });
+
+    window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/'+ page + '.html?id=' + vars.id);
 }

@@ -3,60 +3,56 @@
 <head>
     <title>Movie Finder</title>
     <style>
+        .navbar{
+            padding-top:8px !important;
+            padding-bottom:8px !important;
+        }
+
         .content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            -moz-transform: translateX(-50%) translateY(-50%);
-            -webkit-transform: translateX(-50%) translateY(-50%);
-            transform: translateX(-50%) translateY(-50%);
-            width: 80;
-            margin: auto;
-        }
-
-        .pre-content {
             background-color: #F9F9F9;
-            width: 100vw;
-            height: 100vh;
+            width:60%;
+            padding-top:10px;
+            padding-bottom:20px;
+            padding-left:10px;
+            padding-right:10px;
+            margin-right:20%;
+            margin-left:20%;
         }
-
-        /* label {
-            font-weight: normal !important;
-        } */
-
-        /* table {
-            border-collapse: collapse !important;
-        }
-
-        tr {
-            border: none !important;
-        }
-
-        td {
-            border: none !important;
-        } */
-
-        /* .input {
-            height: 30px !important;
-        } */
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <script src="edit-preferences.js"></script>
 </head>
 <body>
-    <div class="pre-content">
-        <div class="content">
-            <h5 class = "subtitle is-4">
-                Below are the movies you have rated.
-            </h5>
-            <form action="" name="deliver_form" id="myform" style="display: block;">
-                <div id="dynamic_results">
-                </div>
-                <input class="button is-info" style="width:100%;" type="button" value="Update" onClick="update_preferences()">
-                <br>
-            </form>
-            <p id="saved"></p>
+    <nav class="navbar" role="navigation" aria-label="main navigation" style="width:60vw;margin:auto;padding-top:5px;">
+        <div class="navbar-brand">
+            <a class="navbar-item" onClick="redirect('rating')" style="font-size:30px; color:hsl(204, 86%, 53%); font-weight:bold;">
+                MovieFinder
+            </a>
         </div>
+
+        <div class="navbar-end">
+            <a class="navbar-item" onClick="redirect('rating')">
+                Rate
+            </a>
+            <a class="navbar-item" onClick="redirect('user-profile')">
+                Profile
+            </a>
+            <a class="navbar-item" href="http://findusamovie.s3-website-us-east-1.amazonaws.com/">
+                Logout
+            </a>
+        </div>
+    </nav>
+    <div class="content">
+        <h5 class = "subtitle is-4">
+            Below are the movies you have rated.
+        </h5>
+        <form action="" name="deliver_form" id="myform" style="display: block;">
+            <div id="dynamic_results">
+            </div>
+            <input class="button is-info" style="width:100%;" type="button" value="Update" onClick="update_preferences()">
+            <br>
+        </form>
+        <p id="saved"></p>
     </div>
 </body>
 </html>
