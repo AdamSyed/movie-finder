@@ -447,6 +447,37 @@ def new_group():
     
     return({'response':'Good'})
 
+# ENDPOINT - Group Home Page
+@application.route('/group_info', methods = ['POST'])
+def thisGroup():
+    # userID = request.json['userID']
+    groupID = request.json['groupID']
+    #group = Grp.query.get(groupID)
+    group = Grp.query.filter_by(groupID=groupID).first()
+    
+    # Group Name
+    
+                                    
+    # Group members
+
+    #
+    print(group)
+    print(group.name)
+    print(group.users)
+
+    groupInfo = {'groupID':group.groupID, 'groupName':group.name}
+
+    j = 1
+    for i in group.users:
+        print(i.userID)
+        groupInfo['member'+str(j)] = i.userID
+        j+=1
+
+    groupInfo['size']=j-1
+
+    return(jsonify(groupInfo))
+     
+
 # Run server
 if __name__ == '__main__':
 
