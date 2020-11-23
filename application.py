@@ -248,9 +248,22 @@ def create():
         user_id = User.query.filter_by(email = email).first().userID
         output = {'response':user_id}
     else:
-        output = {'response':'email_dupplicate'}
+        output = {'response':'email_duplicate'}
     return jsonify(output)
 
+# ENDPOINT - Get user preferences
+@application.route('/user-preferences',methods=['POST'])
+def user_preferences():
+    id = request.json['id']
+
+    user = User.query.filter_by(userID=id).first()
+
+    if bool(user) == True:
+        output = {"email":user.email, "password":user.password,"firstname":user.firstname,"lastname":user.lastname}
+    else:
+        output = {"response": "Invalid ID."}
+
+    return jsonify(output)
 
 # ENDPOINT - Update user preferences
 @application.route('/update-user-preferences',methods=['PUT'])
