@@ -11,4 +11,6 @@ In this project we will use a branch method of coding to track our work and to s
 4. jaad
 5. adam
  
-To use this application, please go to this link: [link will be added in the first sprint]
+To use this application, please go to this link: http://findusamovie.s3-website-us-east-1.amazonaws.com/
+
+NOTE: The navbar of this web application was based on Bulma's Navbar. Bulma is an open-sourced CSS framework. Changes were made to the sample navbar from Bulma to adapt it for our website's use.

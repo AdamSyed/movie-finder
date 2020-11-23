@@ -1,32 +1,28 @@
 <!DOCTYPE html>
 <html>
 
-<<head>
+<head>
     <!--Put  Tab Title Here-->
     <title>Rate Movies</title>
     <!--Set General Style Settings-->
     <style>
+        .navbar{
+            padding-top:8px !important;
+            padding-bottom:8px !important;
+        }
 
         .content {
-            position: absolute;
-            top: 30%;
-            left: 50%;
-            -moz-transform: translateX(-50%) translateY(-50%);
-            -webkit-transform: translateX(-50%) translateY(-50%);
-            transform: translateX(-50%) translateY(-50%);
-            margin: auto;
-        }
-        .pre-content {
             background-color: #F9F9F9;
-            width: 100vw;
-            height: 100vh;
+            width:60%;
+            padding-top:10px;
+            padding-bottom:20px;
+            padding-left:10px;
+            padding-right:10px;
+            margin-right:20%;
+            margin-left:20%;
+            border-radius:17px;
         }
-        label {
-            font-weight: normal !important;
-        }
-        table {
-            border-collapse: collapse !important;
-        }
+
         tr {
             border: none !important;
         }
@@ -36,95 +32,84 @@
         .input {
             height: 30px !important;
         }
+
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <script src="app.js"></script>
+   
 </head>
 
- <body onload="returnMovie()">>
+ <body onload="returnMovie()">
+    <nav class="navbar" role="navigation" aria-label="main navigation" style="width:60vw;margin:auto;padding-top:5px;">
+        <div class="navbar-brand">
+            <a class="navbar-item" onClick="redirect('rating')" style="font-size:30px; color:hsl(204, 86%, 53%); font-weight:bold;">
+                MovieFinder
+            </a>
+        </div>
 
-     <div class="pre-content">
-         <div class="content">
-            
-             <h1 style="font-size:40px; color:hsl(261, 76%, 46%); font-weight:bold;margin:0 auto;width:100%;text-align:center !important;padding-bottom:10px;">Rate Movies</h1>
-             <h5 class="subtitle is-5" style="text-align: center; padding-bottom: 0px !important;margin-bottom:20px !important">
-                 Select whether you like or dislike the movie shown Below
-             </h5>
-          
-             <table cellspacing=0 cellpadding=0>
+        <div class="navbar-end">
+            <a class="navbar-item" onClick="redirect('rating')">
+                Rate
+            </a>
+            <a class="navbar-item" onClick="redirect('user-profile')">
+                Profile
+            </a>
+            <a class="navbar-item" href="http://findusamovie.s3-website-us-east-1.amazonaws.com/">
+                Logout
+            </a>
+        </div>
+    </nav>
+    <div class="content">
+        <br>
+        <h5 style="text-align: center;">Select whether you like or dislike the movie shown below!</h5>
 
-                 <tr>
-                     <td style="text-align: right">
-                         <b style="font-size: 30px">Movie Title:</b>
+        <table cellspacing=0 cellpadding=0>
+            <tr>
+                <td style="text-align: right">
+                    <b style="font-size: 30px">Movie Title:</b>
+                </td>
+                <!--Pass Title Info into here-->
+                <td>
+                    <p id="movie_name"></p>
+                </td>
+            </tr>
+            <!--Pass Genre Info into here-->
+            <tr>
+                <td style="text-align: right">
+                    <b style="font-size: 30px">Genre:</b>
+                </td>
+                <td>
+                    <p id="movie_genre"></p>
+                </td>
+            </tr>
+            <!--Pass Director Info into here-->
+            <tr>
+                <td style="text-align: right">
+                    <b style="font-size: 30px">Director:</b>
+                </td>
+                <td>
+                    <p id="movie_director"></p>
+                </td>
+            </tr>
+            <tr>
+                <td align='right'>
+                    <input type="button" class="IMDB Button" value="View IMDb Page" onClick="viewIMDB()" style="font-size: 15px;border: none;font-weight: bold;color:white; background-color: hsl(204, 86%, 53%); width: 300px;padding-top:3px;padding-bottom:3px;">
+                </td>
+                <td>
+                    <input type="button" class="Trailer Button" value="View Trailer" onClick="viewTrailer()" style="font-size:15px;border: none;font-weight:bold; color:white; background-color: hsl(204, 86%, 53%); width:300px;padding-top:3px;padding-bottom:3px;">
+                </td>
+            </tr>
+            <tr>
+                <td align='right'>
+                    <input type="button" class="button is-Disliked" value="Dislike" onClick="clickedNo()" style="font-size: 30px; border: none;font-weight: bold;color:white; background-color: hsl(348, 100%, 51%); width: 300px">
 
+                </td>
 
-                     </td>
-
-                     <!--Pass Title Info into here-->
-                     <td>
-                         <p id="movie_name"></p>
-                     </td>
-
-                 </tr>
-                 <!--Pass Genre Info into here-->
-                 <tr>
-                     <td style="text-align: right">
-                         <b style="font-size: 30px">Genre:</b>
-                     </td>
-
-
-                     <td>
-                         <p id="movie_genre"></p>
-                     </td>
-                 </tr>
-
-                 <!--Pass Director Info into here-->
-                 <tr>
-                     <td style="text-align: right">
-                         <b style="font-size: 30px">Director:</b>
-                     </td>
-
-
-                     <td>
-                         <p id="movie_director"></p>
-                     </td>
-                 </tr>
-                 <!--
-                     <tr>
-                         <td colspan="2">
-                             <input type="button" class="Trailer Button" value="See Trailer" onClick="viewTrailer()" style="font-size:30px;font-weight:bold;border-color: black; color:white; background-color:blue; width:100%; padding-top:20px;
-    padding-bottom:20px">
-                         </td>
-                     </tr>
-                     -->
-                 <tr>
-                     <td>
-                         <input type="button" class="IMDB Button" value="View IMDb Page" onClick="viewIMDB()" style="font-size: 30px; border-color: black; font-weight: bold;color:white; background-color: blue; width: 300px">
-
-                     </td>
-
-                     <td>
-                         <input type="button" class="Trailer Button" value="View Trailer" onClick="viewTrailer()" style="font-size:30px;font-weight:bold;border-color: black; color:white; background-color: blue; width:300px">
-                     </td>
-                 </tr>
-                 <tr>
-                     <td>
-                         <input type="button" class="button is-Disliked" value="Dislike" onClick="clickedNo()" style="font-size: 30px; border-color: black; font-weight: bold;color:white; background-color: red; width: 300px">
-
-                     </td>
-
-                     <td>
-                         <input type="button" class="button is-Liked" value="Like" onClick="clickedYes()" style="font-size:30px;font-weight:bold;border-color: black; color:white; background-color:green; width:300px">
-                     </td>
-                 </tr>
-
-
-             </table>
-           
-         </div>
-     </div>
-
-
+                <td>
+                    <input type="button" class="button is-Liked" value="Like" onClick="clickedYes()" style="font-size:30px;border: none;font-weight:bold; color:white; background-color: #01a725; width:300px">
+                </td>
+            </tr>
+        </table>
+    </div>
  </body>
-
 </html>
