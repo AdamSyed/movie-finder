@@ -12,8 +12,8 @@ mycursor = mydb.cursor()
 
 #mycursor.execute("select * from userratesmovie where userID=2;")
 #mycursor.execute("select * from userratesmovie where userID=6;")
-#mycursor.execute("select * from grp;")
-mycursor.execute("select * from useringroup;")
+mycursor.execute("select * from user;")
+#mycursor.execute("select * from useringroup;")
 
 myresult = mycursor.fetchall()
 
