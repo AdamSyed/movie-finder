@@ -28,7 +28,7 @@ async function create_group(){
     console.log(resp);
 
     //REPLACE THIS REDIRECT SECTION WITH THE HTML OF THE MY GROUPS PAGES
-    //var redirect = 'http://findusamovie.s3-website-us-east-1.amazonaws.com/my-groups.html?id='+json.response;
-    //console.log(redirect);
-    //window.location.replace(redirect);
+    var redirect = 'http://findusamovie.s3-website-us-east-1.amazonaws.com/my-groups.html?id='+json.response;
+    console.log(redirect);
+    window.location.replace(redirect);
 };
