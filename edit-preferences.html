@@ -49,10 +49,13 @@
         <h5 class = "subtitle is-4">
             Below are the movies you have rated.
         </h5>
-        <form>
+        <form action="" name="deliver_form" id="myform" style="display: block;">
             <div id="dynamic_results">
             </div>
+            <input class="button is-info" style="width:100%;" type="button" value="Update" onClick="update_preferences()">
+            <br>
         </form>
+        <p id="saved"></p>
     </div>
 </body>
 </html>
