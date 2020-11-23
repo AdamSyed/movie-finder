@@ -468,8 +468,10 @@ def thisGroup():
 
     j = 1
     for i in group.users:
-        # print(i.userID)
-        groupInfo['member'+str(j)] = i.firstname
+        print(i.userID)
+        thisUser = User.query.filter_by(userID = i.userID).first()
+        #print(thisUser.firstname)
+        groupInfo['member'+str(j)] = thisUser.firstname
         j+=1
 
     groupInfo['size']=j-1
