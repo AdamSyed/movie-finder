@@ -8,8 +8,7 @@ async function Info() {
     });
     console.log(vars.groupId); //gets the groupID that has been passed
 
-    const response = await fetch(API_URL_2.concat("group_info"), {
-    //const response = await fetch(RETURN_MOVIE_URL, {
+    const response = await fetch(API_URL_2.concat("group-info"), {
 
         method: 'GET',
         headers: {

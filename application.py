@@ -448,7 +448,7 @@ def new_group():
     return({'response':'Good'})
 
 # ENDPOINT - Group Home Page
-@application.route('/group_info', methods = ['POST'])
+@application.route('/group-info', methods = ['POST'])
 def thisGroup():
     # userID = request.json['userID']
     groupID = request.json['groupID']
