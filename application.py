@@ -468,8 +468,8 @@ def thisGroup():
 
     j = 1
     for i in group.users:
-        print(i.userID)
-        groupInfo['member'+str(j)] = i.userID
+        # print(i.userID)
+        groupInfo['member'+str(j)] = i.firstname
         j+=1
 
     groupInfo['size']=j-1

@@ -10,7 +10,7 @@ async function Info() {
 
     const response = await fetch(API_URL_2.concat("group-info"), {
 
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
