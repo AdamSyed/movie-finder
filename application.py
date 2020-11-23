@@ -218,16 +218,17 @@ def default():
 # ENDPOINT - Login
 @application.route('/login', methods=['POST'])
 def check_login_creds():
+    print('before')
     email = request.json['email']
     password = request.json['password']
-
+    print('request Done')
     user = User.query.filter_by(email=email, password=password).first()
-
+    print('object checked')
     if bool(user) == True:
         output = {"response": str(user.userID)}
     else:
         output = {"response": "Invalid credentials."}
-
+    print('output complete')
     return jsonify(output)
 
 # ENDPOINT - Create user account

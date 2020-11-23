@@ -11,8 +11,10 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 
 #sql = "CREATE TABLE usermovieblacklistvote (movieID INT NOT NULL,userID INT NOT NULL,groupID INT NOT NULL,blacklist_vote BOOLEAN,PRIMARY KEY (movieID,userID,groupID),FOREIGN KEY (movieID) REFERENCES userratesmovie(movieID),FOREIGN KEY (groupID) REFERENCES useringroup(groupID),FOREIGN KEY (userID) REFERENCES useringroup(userID));"
-sql = "insert into useringroup (groupID,userID,joined_at,left_at) values (1, 4, NULL, NULL)"
+#sql = "insert into movie (name,year,director,genre) values "
 #sql = "drop from useringroup;"
+#sql = "insert into user (email,password,firstname,lastname) values"
+sql = "insert into useringroup(groupID,userID,joined_at,left_at) values (16,13,NULL,NULL),(16,14,NULL,NULL),(16,15,NULL,NULL),(16,16,NULL,NULL) "
 
 
 mycursor.execute(sql)
