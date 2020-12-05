@@ -3,32 +3,32 @@
 
 <head>
     <!--Put  Tab Title Here-->
-    <title>RateMovies</title>
+    <title>My Groups</title>
     <!--Set General Style Settings-->
     <style>
-        .navbar{
-            padding-top:8px !important;
-            padding-bottom:8px !important;
+        .navbar {
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
         }
 
         .content {
             background-color: #F9F9F9;
-            width:60%;
-            padding-top:10px;
-            padding-bottom:20px;
-            padding-left:10px;
-            padding-right:10px;
-            margin-right:20%;
-            margin-left:20%;
-            border-radius:17px;
+            width: 60%;
+            padding-top: 10px;
+            padding-bottom: 20px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-right: 20%;
+            margin-left: 20%;
+            border-radius: 17px;
         }
-
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-    <script src="group-home.js"></script>
+    <script src="my-groups.js"></script>
 </head>
+<!--Navagation Bar Code here-->
+<body onload="LoadGroups()">
 
- <body onload="returnMovie()">
     <nav class="navbar" role="navigation" aria-label="main navigation" style="width:60vw;margin:auto;padding-top:5px;">
         <div class="navbar-brand">
             <a class="navbar-item" onClick="redirect('rating')" style="font-size:30px; color:hsl(204, 86%, 53%); font-weight:bold;">
@@ -49,7 +49,23 @@
         </div>
     </nav>
     <div class="content">
-        <!-- DROP YOUR CODE HERE -->
+        <!--Page Title and Sub title here-->
+        <h1 style="font-size:40px; color:hsl(261, 76%, 46%); font-weight:bold;margin:0 auto;width:100%;text-align:center !important;padding-bottom:10px;">My Groups</h1>
+        <h5 class="subtitle is-5" style="text-align: center; padding-bottom: 0px !important;margin-bottom:20px !important">
+            Access your Groups Below
+        </h5>
+
+
+        <!--This is where the code for groups is outputted-->
+        <div id="dynamic_results">
+
+        </div>
+
+        <button style="font-size:large" type="button" onclick="createGroup()">Create Group </button>
+        <button style="font-size:30px" type="button" onclick="createGroup()">Open Group</button>
+
+        
     </div>
- </body>
+</body>
 </html>
+
