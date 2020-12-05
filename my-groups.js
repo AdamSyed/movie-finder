@@ -1,14 +1,31 @@
-constAPI_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/';
+const API_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/';
 
 
-function redirect(page) {
+function redirectRating() {
     var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-       vars[key] = value;
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
     });
 
-    window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/'+ page + '.html?id=' + vars.id);
+    window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + vars.id);
 }
+function redirectProfile() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+
+    window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/user-profile.html?id=' + vars.id);
+}
+function redirectGroup() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+
+    window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/my-groups.html?id=' + vars.id);
+}
+
 
 async function LoadGroups(){
      var vars = {};
@@ -62,7 +79,7 @@ async function LoadGroups(){
 }
 
  // Send info to the next page
-async function OpenGroup( id){
+async function OpenGroup(id){
    // window.alert(id);
     //window.location.change("www.moviefinder.com/group-home.html);
    window.location.replace("http://findusamovie.s3-website-us-east-1.amazonaws.com/group-home.html?groupId="+ id)

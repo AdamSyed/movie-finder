@@ -28,7 +28,32 @@ async function create_group(){
     console.log(resp);
 
     //REPLACE THIS REDIRECT SECTION WITH THE HTML OF THE MY GROUPS PAGES
-    //var redirect = 'http://findusamovie.s3-website-us-east-1.amazonaws.com/my-groups.html?id='+json.response;
-    //console.log(redirect);
-    //window.location.replace(redirect);
+    var redirect = 'http://findusamovie.s3-website-us-east-1.amazonaws.com/my-groups.html?id='+ vars.id;
+    console.log(redirect);
+    window.location.replace(redirect);
 };
+
+function redirectRating() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+
+    window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + vars.id);
+}
+function redirectProfile() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+
+    window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/user-profile.html?id=' + vars.id);
+}
+function redirectGroup() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+
+    window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/my-groups.html?id=' + vars.id);
+}

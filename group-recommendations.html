@@ -1,45 +1,46 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
     <!--Put  Tab Title Here-->
-    <title>Rate Movies</title>
+    <title>Group Recommendations</title>
     <!--Set General Style Settings-->
     <style>
-        .navbar{
-            padding-top:8px !important;
-            padding-bottom:8px !important;
+        .navbar {
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
         }
 
         .content {
             background-color: #F9F9F9;
-            width:60%;
-            padding-top:10px;
-            padding-bottom:20px;
-            padding-left:10px;
-            padding-right:10px;
-            margin-right:20%;
-            margin-left:20%;
-            border-radius:17px;
+            width: 60%;
+            padding-top: 10px;
+            padding-bottom: 20px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-right: 20%;
+            margin-left: 20%;
+            border-radius: 17px;
         }
 
         tr {
             border: none !important;
         }
+
         td {
             border: none !important;
         }
+
         .input {
             height: 30px !important;
         }
-
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-    <script src="app.js"></script>
-   
+    <script src="group-recommendations.js"></script>
+
 </head>
 
- <body onload="returnMovie()">
+<body onload="groupMovies()">
     <nav class="navbar" role="navigation" aria-label="main navigation" style="width:60vw;margin:auto;padding-top:5px;">
         <div class="navbar-brand">
             <a class="navbar-item" onClick="redirectRating()" style="font-size:30px; color:hsl(204, 86%, 53%); font-weight:bold;">
@@ -64,7 +65,7 @@
     </nav>
     <div class="content">
         <br>
-        <h5 style="text-align: center;">Select whether you like or dislike the movie shown below!</h5>
+        <h5 style="text-align: center;">Here are the movies that the group is most interested in:!</h5>
 
         <table cellspacing=0 cellpadding=0>
             <tr>
@@ -73,7 +74,8 @@
                 </td>
                 <!--Pass Title Info into here-->
                 <td>
-                    <p id="movie_name"></p>
+                    <p id="first"></p>
+                    <p id="first_genre"></p>
                 </td>
             </tr>
             <!--Pass Genre Info into here-->
@@ -82,7 +84,8 @@
                     <b style="font-size: 30px">Genre:</b>
                 </td>
                 <td>
-                    <p id="movie_genre"></p>
+                    <p id="second"></p>
+                    <p id="second_genre"></p>
                 </td>
             </tr>
             <!--Pass Director Info into here-->
@@ -91,28 +94,11 @@
                     <b style="font-size: 30px">Director:</b>
                 </td>
                 <td>
-                    <p id="movie_director"></p>
-                </td>
-            </tr>
-            <tr>
-                <td align='right'>
-                    <input type="button" class="IMDB Button" value="View IMDb Page" onClick="viewIMDB()" style="font-size: 15px;border: none;font-weight: bold;color:white; background-color: hsl(204, 86%, 53%); width: 300px;padding-top:3px;padding-bottom:3px;">
-                </td>
-                <td>
-                    <input type="button" class="Trailer Button" value="View Trailer" onClick="viewTrailer()" style="font-size:15px;border: none;font-weight:bold; color:white; background-color: hsl(204, 86%, 53%); width:300px;padding-top:3px;padding-bottom:3px;">
-                </td>
-            </tr>
-            <tr>
-                <td align='right'>
-                    <input type="button" class="button is-Disliked" value="Dislike" onClick="clickedNo()" style="font-size: 30px; border: none;font-weight: bold;color:white; background-color: hsl(348, 100%, 51%); width: 300px">
-
-                </td>
-
-                <td>
-                    <input type="button" class="button is-Liked" value="Like" onClick="clickedYes()" style="font-size:30px;border: none;font-weight:bold; color:white; background-color: #01a725; width:300px">
+                    <p id="third"></p>
+                    <p id="third_genre"></p>
                 </td>
             </tr>
         </table>
     </div>
- </body>
+</body>
 </html>
