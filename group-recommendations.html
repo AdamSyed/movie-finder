@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <!--Put  Tab Title Here-->
+    <title>Group Recommendations</title>
+    <!--Set General Style Settings-->
+    <style>
+        .navbar {
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
+        }
+
+        .content {
+            background-color: #F9F9F9;
+            width: 60%;
+            padding-top: 10px;
+            padding-bottom: 20px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-right: 20%;
+            margin-left: 20%;
+            border-radius: 17px;
+        }
+
+        tr {
+            border: none !important;
+        }
+
+        td {
+            border: none !important;
+        }
+
+        .input {
+            height: 30px !important;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script src="group-recommendations.js"></script>
+
+</head>
+
+<body onload="groupMovies()">
+    <nav class="navbar" role="navigation" aria-label="main navigation" style="width:60vw;margin:auto;padding-top:5px;">
+        <div class="navbar-brand">
+            <a class="navbar-item" onClick="redirectRating()" style="font-size:30px; color:hsl(204, 86%, 53%); font-weight:bold;">
+                MovieFinder
+            </a>
+        </div>
+
+        <div class="navbar-end">
+            <a class="navbar-item" onClick="redirectRating()">
+                Rate
+            </a>
+            <a class="navbar-item" onClick="redirectProfile()">
+                Profile
+            </a>
+            <a class="navbar-item" onClick="redirectGroup()">
+                My Groups
+            </a>
+            <a class="navbar-item" href="http://findusamovie.s3-website-us-east-1.amazonaws.com/">
+                Logout
+            </a>
+        </div>
+    </nav>
+    <div class="content">
+        <br>
+        <h5 style="text-align: center;">Here are the movies that the group is most interested in:!</h5>
+
+        <table cellspacing=0 cellpadding=0>
+            <tr>
+                <td style="text-align: right">
+                    <b style="font-size: 30px">Movie Title:</b>
+                </td>
+                <!--Pass Title Info into here-->
+                <td>
+                    <p id="first"></p>
+                    <p id="first_genre"></p>
+                </td>
+            </tr>
+            <!--Pass Genre Info into here-->
+            <tr>
+                <td style="text-align: right">
+                    <b style="font-size: 30px">Genre:</b>
+                </td>
+                <td>
+                    <p id="second"></p>
+                    <p id="second_genre"></p>
+                </td>
+            </tr>
+            <!--Pass Director Info into here-->
+            <tr>
+                <td style="text-align: right">
+                    <b style="font-size: 30px">Director:</b>
+                </td>
+                <td>
+                    <p id="third"></p>
+                    <p id="third_genre"></p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

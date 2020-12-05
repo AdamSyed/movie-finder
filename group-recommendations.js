@@ -5,6 +5,7 @@ async function groupMovies() {
 
     // const RETURN_MOVIE_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/rating/1';
     const RETURN_MOVIE_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/group-results';
+    
     //console.log("reached here");
     var vars = {};
     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
@@ -24,9 +25,19 @@ async function groupMovies() {
 
     const jsonFile = await response.json();
 
+    jsonFile = {
+        "top_name": "My Marks",
+        "top_genre": "Tragedy",
+        "second_name": "Murder on the Orient Express",
+        "second_genre": "Mystery",
+        "third_name": "Inception",
+        "third_genre": "Action",
+    };
+
 	console.log(jsonFile);
 
     //'top_name': out[0], 'top_id': out[1], 'top_genre': out[2],'second_name': out[3], 'second_id': out[4], 'second_genre': out[5],'third_name': out[6],'third_id': out[7],'third_genre': out[8],}
+        
 
     //assign the Javascript values to the approporate HTML sections for diplay
     document.getElementById('first').innerHTML = jsonFile["top_name"];
