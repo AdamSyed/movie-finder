@@ -48,10 +48,14 @@ async function create_user(){
     var last_name = document.info.last_name.value;
     var email = document.info.email.value;
     var password = document.info.password.value;
-
+    var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    
     if (first_name == '' | last_name == '' | email == '' | password == ''){
         document.getElementById('invalid').innerHTML = 'Please fill in all of the fields.';
-    } else{
+    } else if (email.match(regex) == null) {
+        document.getElementById('invalid').innerHTML = 'Please enter a valid email address.';
+    }
+    else{
         const response = await fetch(API_URL.concat(api_endpoint), {
             method: 'PUT',
             headers: {
