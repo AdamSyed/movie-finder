@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import numpy as np
+from collections import Counter
 
 # Initiate application
 application = Flask(__name__)
@@ -321,7 +322,7 @@ def update_rating():
             output['response'] = 'Error'
     return jsonify(output)
 
-
+#ENDPOINT - display movies for a user to rate
 @application.route('/rating', methods = ['POST'])
 def movie_option():
     userID = request.json['id']
@@ -431,7 +432,7 @@ def rated():
      return ({'response':'Good'})
      # this method will insert into the user_rates_movie table 
 
-
+#ENDPOINT - Create new group
 @application.route('/create-group', methods = ['POST'])
 def new_group():
     userID = request.json['id']
@@ -478,9 +479,69 @@ def thisGroup():
     groupInfo['size']=j-1
 
     return(jsonify(groupInfo))
-     
+
+@application.route('/group-results', methods = ['POST'])
+def group_results():
+    userID = request.json['id']
+    groupID = request.json['groupID']
+
+    ##logic
+    #1.Get a list of all members in the group
+    groupMembers = []
+    groupMembers = Useringroup.query.filter_by(groupID = groupID).all()
+    print(groupMembers)
+    #2.Find the individual list of movies that each of those members have rated and 3.Filter so we have a list of all the movies that each member has rated a "yes" on
+    memberMovie = []
+
+    for j in groupMembers:
+        ratings = Userratesmovie.query.filter_by(userID = j.userID).all()
+        print(ratings)
+        for k in ratings:
+            if (k.isLiked == True):
+                print(k.movieID)
+                print(k.isLiked)
+                memberMovie.append(k.movieID)
+    print(memberMovie)
+
+    #4.Get tallies for the number of ratings for each movie that members have rated "yes"
+    tallies = Counter(memberMovie)
+    print(tallies)
+    #5.Sort the list in descending order of number of yes ratings
+    top3 = tallies.most_common(3)
+    print(top3)
+
+    #remove the tally so we are left with the movie only 
+    movieList = []
+    for i in top3:
+        movieList.append(i[0])
+
+    #6.Filter out the movies that have been marked "watched" by the group
+    #get the list of blacklisted movies for this group
+    alreadyWatched = Usermovieblacklistvote.query.filter_by(groupID = groupID)
+    watchedFilter = []
+    for i in alreadyWatched:
+        watchedFilter.append(i.movieID)
+    print(watchedFilter)
+
+    #use numpy to find the movies that aren't in 
+    print(watchedFilter)
+    print(movieList)
+    topUnwatched = list(set(movieList).difference(watchedFilter))
+    #print(unwatchedMovies)
+    #7.Output the top 3 movies
+
+    out = []
+    for j in topUnwatched:
+        out.append(Movie.query.filter_by(movieID = j).first().name)
+        out.append(Movie.query.filter_by(movieID = j).first().movieID)
+        out.append(Movie.query.filter_by(movieID = j).first().genre)
+
+    print(out)
+    recommendations = {'top_name': out[0], 'top_id': out[1], 'top_genre': out[2],'second_name': out[3], 'second_id': out[4], 'second_genre': out[5],'third_name': out[6],'third_id': out[7],'third_genre': out[8],}
+
+    return (recommendations)
 
 # Run server
 if __name__ == '__main__':
-    application.run(host='0.0.0.0')
-    #application.run(debug=True)
+    #application.run(host='0.0.0.0')
+    application.run(debug=True)

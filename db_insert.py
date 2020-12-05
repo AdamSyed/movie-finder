@@ -14,8 +14,8 @@ mycursor = mydb.cursor()
 #sql = "insert into movie (name,year,director,genre) values "
 #sql = "drop from useringroup;"
 #sql = "insert into user (email,password,firstname,lastname) values"
-sql = "insert into useringroup(groupID,userID,joined_at,left_at) values (16,13,NULL,NULL),(16,14,NULL,NULL),(16,15,NULL,NULL),(16,16,NULL,NULL) "
-
+#sql = "insert into useringroup(groupID,userID,joined_at,left_at) values (16,13,NULL,NULL),(16,14,NULL,NULL),(16,15,NULL,NULL),(16,16,NULL,NULL) "
+sql = "insert into usermovieblacklistvote(groupID,userID,movieID,blacklist_vote) values (16,13,9,1)"
 
 mycursor.execute(sql)
 
