@@ -1,21 +1,20 @@
 // JavaScript source code
-//const API_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/';
+const API_URL_2 = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/';
 
 async function Info() {
     var vars = {};
     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
         vars[key] = value;
     });
-    console.log(vars.groupID); //gets the groupID that has been passed
+    console.log(vars.groupId); //gets the groupID that has been passed
 
-    const response = await fetch(API_URL.concat("group_info"), {
-    //const response = await fetch(RETURN_MOVIE_URL, {
+    const response = await fetch(API_URL_2.concat("group-info"), {
 
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ groupID: vars.groupID })
+        body: JSON.stringify({ groupID: vars.groupId })
     });
 
     const jsonFile = await response.json();
@@ -36,4 +35,29 @@ async function Info() {
     document.getElementById('group_name').innerHTML = jsonFile["groupName"];
     document.getElementById('group_ID').innerHTML = jsonFile["groupID"];
     document.getElementById('group_members').innerHTML = members;
+}
+
+function redirectRating() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+
+    window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/rating.html?id=' + vars.id);
+}
+function redirectProfile() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+
+    window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/user-profile.html?id=' + vars.id);
+}
+function redirectGroup() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+
+    window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/my-groups.html?id=' + vars.id);
 }
