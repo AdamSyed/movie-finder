@@ -92,7 +92,7 @@ async function LoadGroups(){
          headers: {
              'Content-Type': 'application/json'
          },
-         body: JSON.stringify({ id: vars.id, groupID: vgroup })
+         body: JSON.stringify({ id: vars.id, groupID: group })
      });
 
      const jsonFile = await response.json();
