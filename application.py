@@ -588,7 +588,7 @@ def watched_Movie():
 @application.route('/leave-group', methods = ['POST'])
 def leave_group():
     userID = request.json['id']
-    groupID = request.json['group_ID']
+    groupID = request.json['groupID']
 
     #Remove user from group
     RemoveGroup = Useringroup.query.filter_by(groupID = groupID, userID = userID).delete()
