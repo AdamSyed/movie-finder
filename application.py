@@ -579,7 +579,19 @@ def watched_Movie():
     
     return({'response':'Good'})
 
+#ENDPOINT - Leave group
+@application.route('/leave-group', methods = ['POST'])
+def leave_group():
+    userID = request.json['id']
+    groupID = request.json['group_ID']
+
+    #Remove user from group
+    RemoveGroup = Useringroup.query.filter_by(groupID = groupID, userID = userID).delete()
+    db.session.commit()
+    
+    return({'response':'You have successfully removed the group'})
+
 # Run server
 if __name__ == '__main__':
-    #application.run(host='0.0.0.0')
-    application.run(debug=True)
+    application.run(host='0.0.0.0')
+    #application.run(debug=True)
