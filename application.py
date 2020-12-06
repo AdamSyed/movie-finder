@@ -585,7 +585,7 @@ def watched_Movie():
     return({'response':'Good'})
 
 #ENDPOINT - Leave group
-@application.route('/leave-group', methods = ['DELETE'])
+@application.route('/leave-group', methods = ['PUT'])
 def leave_group():
     userID = request.json['id']
     groupID = request.json['groupID']

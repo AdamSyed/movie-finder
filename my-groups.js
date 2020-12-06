@@ -78,19 +78,24 @@ async function LoadGroups(){
  // Send info to the next page
  async function LeaveGroup(group){
    const api_endpoint = 'leave-group';
-    var vars = {};
+     var vars = {};
      var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
         vars[key] = value;
      });
 
-     const response = await fetch(API_URL.concat(api_endpoint), {
-      method: 'DELETE',
-      headers: {
-          'Content-Type':'application/json'
-      },
-         body: JSON.stringify({ id: vars.id, groupID: group })
+     const LEAVE_GROUP_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/leave-group';
+
+     //const response = await fetch(API_URL.concat(api_endpoint), {
+     const response = await fetch(LEAVE_GROUP_URL, {
+
+         method: 'PUT',
+         headers: {
+             'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({ id: vars.id, groupID: vgroup })
      });
-     const json = await response.json();
+
+     const jsonFile = await response.json();
 
      window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/my-groups.html?id=' + vars.id);
 }
