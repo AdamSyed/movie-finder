@@ -3,14 +3,21 @@
 <head>
     <title>Movie Finder</title>
     <style>
-        .pre-content{
-            background-color: #F9F9F9;
+        .navbar{
+            padding-top:8px !important;
+            padding-bottom:8px !important;
         }
 
         .content {
-            /* position:relative; */
-            width:60vw;
-            margin:auto;
+            background-color: #F9F9F9;
+            width:60%;
+            padding-top:10px;
+            padding-bottom:20px;
+            padding-left:10px;
+            padding-right:10px;
+            margin-right:20%;
+            margin-left:20%;
+            border-radius:17px;
         }
         label{
             font-weight:normal !important;
@@ -24,48 +31,30 @@
 
 <body>
 
-    <nav class="navbar" role="navigation" aria-label="main navigation" style="width:60vw;margin:auto;padding-top:5px;">
-        <div class="navbar-brand">
-            <a class="navbar-item" onClick="redirectRating()" style="font-size:30px; color:hsl(204, 86%, 53%); font-weight:bold;">
-                MovieFinder
-            </a>
-        </div>
+  <nav class="navbar" role="navigation" aria-label="main navigation" style="width:60vw;margin:auto;padding-top:5px;">
+    <div class="navbar-brand">
+        <a class="navbar-item" onClick="location.href='http://findusamovie.s3-website-us-east-1.amazonaws.com/';" style="font-size:30px; color:hsl(204, 86%, 53%); font-weight:bold;">
+            MovieFinder
+        </a>
+    </div>
+  </nav>
 
-        <div class="navbar-end">
-            <a class="navbar-item" onClick="redirectRating()">
-                Rate
-            </a>
-            <a class="navbar-item" onClick="redirectProfile()">
-                Profile
-            </a>
-            <a class="navbar-item" onClick="redirectGroup()">
-                My Groups
-            </a>
-            <a class="navbar-item" href="http://findusamovie.s3-website-us-east-1.amazonaws.com/">
-                Logout
-            </a>
-        </div>
-    </nav>
-    <div class="pre-content">
     <div class="content"> 
         <br>
             <h5 class="subtitle is-5">Please tell us a bit about yourself.</h5>
             <form name = "info">
                 <label for="first_name" class="label">First Name</label>
-                <input type="text" id="first_name" name="first_name"><br><br>
+                <input type="text" style="width:100%;height:30px;" id="first_name" name="first_name"><br><br>
                 <label for="last_name" class="label">Last Name</label>
-                <input type="text" id="last_name" name="last_name"><br><br>
+                <input type="text" style="width:100%;height:30px;" id="last_name" name="last_name"><br><br>
                 <label for="email" class="label">Email</label>
-                <input type="text" id="email" name="Email"><br><br>
+                <input type="text" style="width:100%;height:30px;" id="email" name="Email"><br><br>
                 <label for="password" class="label">Password</label>
-                <input type="text" id="password" name="Password"><br><br>
+                <input type="text" style="width:100%;height:30px;" id="password" name="Password"><br><br>
                 <br>
                 <input class = "button is-info" style="width:100%;" type="button" value="Create account" onClick="create_user()">
-                <br><br><br>
             </form>
         <p id="invalid"></p>
-        <br>
     </div>
-</div>
 </body>
 </html>

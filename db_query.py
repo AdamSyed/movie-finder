@@ -15,6 +15,10 @@ mycursor.execute("select * from usermovieblacklistvote;")
 #mycursor.execute("select * from user;")
 #mycursor.execute("select * from useringroup where userID=13;")
 #mycursor.execute("select * from grp;")
+<<<<<<< HEAD
+mycursor.execute("select * from user;")
+=======
+>>>>>>> main
 
 myresult = mycursor.fetchall()
 

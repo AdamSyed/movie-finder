@@ -41,10 +41,12 @@ async function groupMovies() {
 
     //'top_name': out[0], 'top_id': out[1], 'top_genre': out[2],'second_name': out[3], 'second_id': out[4], 'second_genre': out[5],'third_name': out[6],'third_id': out[7],'third_genre': out[8],}
 
+
     //load the movieID array with the new movieID's
     movies[0] = jsonFile["top_id"];
     movies[2] = jsonFile["second_id"];
     movies[3] = jsonFile["third_id"];
+
 
     //assign the Javascript values to the approporate HTML sections for diplay
     document.getElementById('first').innerHTML = jsonFile["top_name"];
@@ -55,7 +57,6 @@ async function groupMovies() {
     document.getElementById('third_genre').innerHTML = jsonFile["third_genre"];
 
 }
-
 
 function redirectRating() {
     var vars = {};

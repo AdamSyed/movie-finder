@@ -449,6 +449,29 @@ def new_group():
     
     return({'response':'Good'})
 
+#ENDPOINT - Join new group
+@application.route('/join-group', methods = ['POST'])
+def join_group():
+    userID = request.json['id']
+    groupID = request.json['group_ID']
+    
+    test = Grp.query.filter_by(groupID=groupID).first()
+    print(test)  
+    if test is None:
+        return({'response': 'Group does not exist'})
+
+    #implement try-catch
+    try:
+        #Add user to specified group
+        addToGroup = Useringroup(groupID,userID, None, None)
+        db.session.add(addToGroup)
+        db.session.commit()
+    except:
+        return({'response':'User already in group'})
+        #return({'response':'Invalid Parameters'})
+    
+    return({'response':'User successfully added to group'})
+
 # ENDPOINT - Group Home Page
 @application.route('/group-info', methods = ['POST'])
 def thisGroup():

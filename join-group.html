@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Create a Group</title>
+    <title>Join a Group</title>
     <style>
         .navbar {
             padding-top: 8px !important;
@@ -23,11 +23,16 @@
         label {
             font-weight: normal !important;
         }
+
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-    <script src="create-group-functions.js"></script>
+
+ 
+    <script src="join-group-functions.js"></script>
+
 </head>
 <body>
+    <!--NAV BAR-->
     <nav class="navbar" role="navigation" aria-label="main navigation" style="width:60vw;margin:auto;padding-top:5px;">
         <div class="navbar-brand">
             <a class="navbar-item" onClick="redirectRating()" style="font-size:30px; color:hsl(204, 86%, 53%); font-weight:bold;">
@@ -50,18 +55,20 @@
             </a>
         </div>
     </nav>
+    <!--Join Group main content-->
         <div class="content">
 
-            <h1 style="font-size:30px; color:hsl(204, 86%, 53%); font-weight:bold;margin:0 auto;width:100%;text-align:center !important;padding-bottom:10px;">Create a new group</h1>
+
+            <h1 style="font-size:30px; color:hsl(204, 86%, 53%); font-weight:bold;margin:0 auto;width:100%;text-align:center !important;padding-bottom:10px;">Join Group</h1>
             <h5 class="subtitle is-6" style="text-align: center; padding-bottom: 0px !important;margin-bottom:20px !important">
-                Please enter then name of the group you would like to create.
+                Please enter the group ID below.
             </h5>
 
             <form name="info">
-                <label for="group_name" class="label">Group Name</label>
-                <input type="text" id="group_name" style="width:100%;height:30px" name="group_name"><br>
+                <label for="group_ID" class="label">Group ID</label>
+                <input type="text" id="group_ID" style="height:30px;width:100%" name="group_ID"><br>
                 <br>
-                <input class="button is-info" style="width:100%;" type="button" value="Create Group" onClick="create_group()">
+                <input class="button is-info" style="width:100%;" type="button" value="Join Group" onClick="join_group()">
                 <br>
             </form>
             <p id="create"></p>
