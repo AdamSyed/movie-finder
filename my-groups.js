@@ -55,9 +55,8 @@ async function LoadGroups(){
      for (var i = 0; i<json.length; i++){
             var groupID = json[i]['groupID'];
             var groupName = json[i]['groupName'];
-            
-        
-           output_html =   output_html +   "<tr><td style=\"text-align: right\"><b style=\"font-size: 30px\">Group ID:</b> </td> <!--Pass Group ID into here--><td> <p id=\"group_id\" style=\"font-size:30px\"> "+ groupID + "</p></td> <td style=\"text-align: right\"><b style=\"font-size: 30px\">Group Name:</b> </td><!--Pass Group Name into here--><td><p id=\"group_name\" style=\"font-size:30px\"> "+ groupName + "</p></td><td> <button style=\"font-size:20px\" class=\"button is-info\" type=\"button\" onclick=\"OpenGroup("+ groupID + ")\">Open Group</button></td><td> <button style=\"font-size:20px\" class=\"button is-info\" type=\"button\" onclick=\"LeaveGroup("+ groupID + ")\">Leave Group</button></td></tr>"  
+      
+           output_html =   output_html +   "<tr><td style=\"text-align: right\"><b style=\"font-size: 20px\">Group ID:</b> </td> <!--Pass Group ID into here--><td> <p id=\"group_id\" style=\"font-size:20px\"> "+ groupID + "</p></td> <td style=\"text-align: right\"><b style=\"font-size: 20px\">Group Name:</b> </td><!--Pass Group Name into here--><td><p id=\"group_name\" style=\"font-size:20px\"> "+ groupName + "</p></td><td> <button style=\"font-size:20px\" class=\"button is-info\" type=\"button\" onclick=\"OpenGroup("+ groupID + ")\">Open Group</button></td><td> <button style=\"font-size:20px\" class=\"button is-info\" type=\"button\" onclick=\"LeaveGroup("+ groupID + ")\">Leave Group</button></td></tr>"  
 
     // basic version to test if working
    // output_html =   output_html +" <tr> <td> <p > "+ groupID + "</p> </td> <td> <p > "+ groupName + " </p> </td>  <td> <input class=\"button is-info\" style=\"width:100%;\" type=\"button\" value=\"Update\" onClick=\"update_preferences()\">  </td> </tr>"
