@@ -96,3 +96,12 @@ async function createGroup(){
  
    window.location.replace("http://findusamovie.s3-website-us-east-1.amazonaws.com/create-group.html?id="+ vars.id)
 }
+
+async function joinGroup(){
+     var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+       vars[key] = value;
+    });
+   //window.alert(vars.id);
+   window.location.replace("http://findusamovie.s3-website-us-east-1.amazonaws.com/join-group.html?id="+ vars.id)
+}
