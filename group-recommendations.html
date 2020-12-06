@@ -73,34 +73,48 @@
         <table cellspacing=0 cellpadding=0>
             <tr>
                 <td style="text-align: right">
-                    <b style="font-size: 30px">Movie Title:</b>
+                    <b style="font-size: 30px">First:</b>
                 </td>
-                <!--Pass Title Info into here-->
+                <!--Pass first movie Info into here-->
                 <td>
                     <p id="first"></p>
                     <p id="first_genre"></p>
                 </td>
+                
+                <td>
+                    <button style="font-size:20px" type="button" onclick="setWatched(0)">Mark as Watched</button>
+                </td>
             </tr>
-            <!--Pass Genre Info into here-->
+            <!--Pass second movie Info into here-->
             <tr>
                 <td style="text-align: right">
-                    <b style="font-size: 30px">Genre:</b>
+                    <b style="font-size: 30px">Second:</b>
                 </td>
                 <td>
                     <p id="second"></p>
                     <p id="second_genre"></p>
                 </td>
+
+                <td>
+                    <button style="font-size:20px" type="button" onclick="setWatched(1)">Mark as Watched</button>
+                </td>
             </tr>
-            <!--Pass Director Info into here-->
+            <!--Pass third movie Info into here-->
             <tr>
                 <td style="text-align: right">
-                    <b style="font-size: 30px">Director:</b>
+                    <b style="font-size: 30px">Third:</b>
                 </td>
                 <td>
                     <p id="third"></p>
                     <p id="third_genre"></p>
                 </td>
+
+                <td>
+                    <button style="font-size:20px" type="button" onclick="setWatched(2)">Mark as Watched</button>
+                </td>
+
             </tr>
+
         </table>
     </div>
 </body>
