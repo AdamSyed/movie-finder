@@ -28,13 +28,13 @@ window.onload = async function(){
         var movieID = json[i]['movieID']
 
         if (isLiked == false){
-            output_html = output_html +  "<h3>"+movieName+"</h3> <label for=\"like\" class=\"label\">Liked</label><input type=\"radio\" id=\"like\" name=\""+movieID+"\" value= \"true\" ><br><label for=\"dislike\" class=\"label\">Disliked</label><input type=\"radio\" id=\"dislike\" name=\""+movieID+"\" value= \"false\" checked ><br>  "
+            output_html = output_html +  "<h3>"+movieName+"</h3><label for=\"like\" class=\"label\">Liked</label><input type=\"radio\" id=\"like\" name=\""+movieID+"\" value=\"true\"><label for=\"dislike\" class=\"label\">Disliked</label><input type=\"radio\" id=\"dislike\" name=\""+movieID+"\" value= \"false\" checked>"
         }
         if (isLiked == true){
-
-           output_html = output_html + "<h3>"+movieName+"</h3> <label for=\"like\" class=\"label\">Liked</label><input type=\"radio\" id=\"like\" name=\""+movieID+"\" value= \"true\" checked ><br><label for=\"dislike\" class=\"label\">Disliked</label><input type=\"radio\" id=\"dislike\" name=\""+movieID+"\" value= \"false\"  ><br>  "
+           output_html = output_html + "<h3>"+movieName+"</h3> <label for=\"like\" class=\"label\">Liked</label><input type=\"radio\" id=\"like\" name=\""+movieID+"\" value= \"true\" checked ><label for=\"dislike\" class=\"label\">Disliked</label><input type=\"radio\" id=\"dislike\" name=\""+movieID+"\" value= \"false\"  >"
         }
     }
+    console.log(output_html);
     document.getElementById('dynamic_results').innerHTML = output_html;
 };
 
