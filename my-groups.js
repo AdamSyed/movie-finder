@@ -88,7 +88,7 @@ async function LoadGroups(){
      //const response = await fetch(API_URL.concat(api_endpoint), {
      const response = await fetch(LEAVE_GROUP_URL, {
 
-         method: 'PUT',
+         method: 'POST',
          headers: {
              'Content-Type': 'application/json'
          },
