@@ -23,16 +23,15 @@
             border-radius: 17px;
         }
 
-        tr {
-            border: none !important;
-        }
-
-        td {
-            border: none !important;
+        tr.border_bottom td {
+            border-bottom: 1px solid black;
         }
 
         .input {
             height: 30px !important;
+        }
+        .inline {
+            display: inline;
         }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
@@ -73,46 +72,48 @@
         <table cellspacing=0 cellpadding=0>
             <tr>
                 <td style="text-align: right">
-                    <b style="font-size: 30px">First:</b>
+                    <b style="font-size: 20px">1</b>
                 </td>
                 <!--Pass first movie Info into here-->
                 <td>
-                    <p id="first"></p>
-                    <p id="first_genre"></p>
+                    <p style="font-weight:bold;" id="first"></p>
+                    <p class="inline">Genre: </p>
+                    <p class="inline" id="first_genre"></p>
                 </td>
                 
                 <td>
-                    <button style="font-size:20px" type="button" onclick="setWatched(0)">Mark as Watched</button>
+                    <button class="button is-info" style="font-size:20px" type="button" onclick="setWatched(0)">Watched</button>
                 </td>
             </tr>
-            <!--Pass second movie Info into here-->
             <tr>
                 <td style="text-align: right">
-                    <b style="font-size: 30px">Second:</b>
+                    <b style="font-size: 20px">2</b>
                 </td>
+                <!--Pass first movie Info into here-->
                 <td>
-                    <p id="second"></p>
-                    <p id="second_genre"></p>
+                    <p style="font-weight:bold;" id="second"></p>
+                    <p class="inline">Genre: </p>
+                    <p class="inline" id="second_genre"></p>
                 </td>
-
+                
                 <td>
-                    <button style="font-size:20px" type="button" onclick="setWatched(1)">Mark as Watched</button>
+                    <button class="button is-info" style="font-size:20px;" type="button" onclick="setWatched(1)">Watched</button>
                 </td>
             </tr>
-            <!--Pass third movie Info into here-->
             <tr>
                 <td style="text-align: right">
-                    <b style="font-size: 30px">Third:</b>
+                    <b style="font-size: 20px">3</b>
                 </td>
+                <!--Pass first movie Info into here-->
                 <td>
-                    <p id="third"></p>
-                    <p id="third_genre"></p>
+                    <p style="font-weight:bold;" id="third"></p>
+                    <p class="inline">Genre: </p>
+                    <p class="inline" id="third_genre"></p>
                 </td>
-
+                
                 <td>
-                    <button style="font-size:20px" type="button" onclick="setWatched(2)">Mark as Watched</button>
+                    <button class="button is-info" style="font-size:20px" type="button" onclick="setWatched(2)">Watched</button>
                 </td>
-
             </tr>
 
         </table>
