@@ -76,7 +76,7 @@ async function LoadGroups(){
 }
 
  // Send info to the next page
- async function LeaveGroup(id){
+ async function LeaveGroup(group){
    const api_endpoint = 'leave-group';
     var vars = {};
      var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
@@ -84,14 +84,17 @@ async function LoadGroups(){
      });
 
      const response = await fetch(API_URL.concat(api_endpoint), {
-      method: 'POST',
+      method: 'PUT',
       headers: {
           'Content-Type':'application/json'
       },
-      body: JSON.stringify({id:vars.id,groupID: id})
-  });
-  const json = await response.json();
+         body: JSON.stringify({ id: vars.id, groupID: group })
+     });
+     const json = await response.json();
+
+     window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/my-groups.html?id=' + vars.id);
 }
+
 async function OpenGroup(id){
    // window.alert(id);
     //window.location.change("www.moviefinder.com/group-home.html);
@@ -99,7 +102,7 @@ async function OpenGroup(id){
      var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
         vars[key] = value;
      });
-   window.location.replace("http://findusamovie.s3-website-us-east-1.amazonaws.com/group-home.html?groupId="+ id+"&id="+vars.id)
+    window.location.replace("http://findusamovie.s3-website-us-east-1.amazonaws.com/group-home.html?groupId=" + id + "&id=" + vars.id);
 }
 
 async function createGroup(){
@@ -111,7 +114,7 @@ async function createGroup(){
 
    //window.alert(vars.id);
  
-   window.location.replace("http://findusamovie.s3-website-us-east-1.amazonaws.com/create-group.html?id="+ vars.id)
+    window.location.replace("http://findusamovie.s3-website-us-east-1.amazonaws.com/create-group.html?id=" + vars.id);
 }
 
 async function joinGroup(){
@@ -120,5 +123,5 @@ async function joinGroup(){
        vars[key] = value;
     });
    //window.alert(vars.id);
-   window.location.replace("http://findusamovie.s3-website-us-east-1.amazonaws.com/join-group.html?id="+ vars.id)
+    window.location.replace("http://findusamovie.s3-website-us-east-1.amazonaws.com/join-group.html?id=" + vars.id);
 }
