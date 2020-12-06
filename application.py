@@ -560,6 +560,8 @@ def group_results():
         out.append(Movie.query.filter_by(movieID = j).first().genre)
     
     while len(out) < 9:
+        out.append('Please rate more movies to see more recommendations')
+        out.append('N/A')
         out.append('N/A')
 
     print(out)

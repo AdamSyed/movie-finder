@@ -36,8 +36,8 @@ async function groupMovies() {
 
     //load the movieID array with the new movieID's
     movies[0] = jsonFile["top_id"];
-    movies[2] = jsonFile["second_id"];
-    movies[3] = jsonFile["third_id"];
+    movies[1] = jsonFile["second_id"];
+    movies[2] = jsonFile["third_id"];
 
 
     //assign the Javascript values to the approporate HTML sections for diplay
@@ -75,13 +75,6 @@ function redirectGroup() {
     window.location.replace('http://findusamovie.s3-website-us-east-1.amazonaws.com/my-groups.html?id=' + vars.id);
 }
 
-// Send info to the next page
-async function setWatched(movieID) {
-    // window.alert(movieID);
-    //window.location.change("www.moviefinder.com/group-home.html);
-    
-}
-
 //Function that sends the watched movieID userID and groupID to the endpoint and refreshes the page
 async function setWatched(movieIndex) {
     var vars = {};
@@ -90,7 +83,8 @@ async function setWatched(movieIndex) {
     });
     currentID = vars.id;
     const api_endpoint = 'group-watched';
-
+    console.log(movies);
+    console.log(movies[movieIndex]);
     const response = await fetch(API_URL.concat(api_endpoint), {
         method: 'PUT',
         headers: {
@@ -101,5 +95,5 @@ async function setWatched(movieIndex) {
     //Alert for testing
     //window.alert(movies[movieIndex]);
     const json = await response.json();
-    window.location.replace("http://findusamovie.s3-website-us-east-1.amazonaws.com/group-results.html?id=" + vars.id + "&groupId=" + vars.groupId);
+    window.location.replace("http://findusamovie.s3-website-us-east-1.amazonaws.com/group-recommendations.html?id=" + vars.id + "&groupId=" + vars.groupId);
 }
