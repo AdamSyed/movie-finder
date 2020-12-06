@@ -541,6 +541,21 @@ def group_results():
 
     return (recommendations)
 
+#ENDPOINT - Create new Watched Movie
+@application.route('/group-watched', methods = ['PUT'])
+def watched_Movie():
+    groupID = request.json['groupID']
+    movieID = request.json['movieID']
+    userID = request.json['id']
+    blacklist_vote = True
+
+    watchedMovie=Usermovieblacklistvote(movieID,userID,groupID,blacklist_vote)
+
+    db.session.add( watchedMovie)
+    db.session.commit()
+    
+    return({'response':'Good'})
+
 # Run server
 if __name__ == '__main__':
     #application.run(host='0.0.0.0')
