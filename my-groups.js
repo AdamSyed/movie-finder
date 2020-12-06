@@ -30,7 +30,7 @@ async function LoadGroups(){
      var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
         vars[key] = value;
      });
-  currentID=vars.id;
+     currentID=vars.id;
      const api_endpoint = 'my-groups';
  
      const response = await fetch(API_URL.concat(api_endpoint), {
@@ -84,7 +84,7 @@ async function LoadGroups(){
      });
 
      const response = await fetch(API_URL.concat(api_endpoint), {
-      method: 'PUT',
+      method: 'DELETE',
       headers: {
           'Content-Type':'application/json'
       },
