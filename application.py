@@ -25,9 +25,9 @@ class User(db.Model):
     password = db.Column(db.String(200), nullable=False)
     firstname = db.Column(db.String(100), nullable=False)
     lastname = db.Column(db.String(100), nullable=False)
-    moviesRated = db.relationship('Userratesmovie', backref='user', lazy=True)
-    groups = db.relationship('Useringroup', backref='user', lazy=True)
-    movieblacklistedvotes = db.relationship('Usermovieblacklistvote', backref='user', lazy=True)
+    moviesRated = db.relationship('Userratesmovie', backref='user', lazy=True, cascade="all,delete")
+    groups = db.relationship('Useringroup', backref='user', lazy=True, cascade="all,delete")
+    movieblacklistedvotes = db.relationship('Usermovieblacklistvote', backref='user', lazy=True, cascade="all,delete")
 
     def __init__(self,email,password,firstname,lastname):
         self.email = email
@@ -73,8 +73,8 @@ class Grp(db.Model):
     name = db.Column(db.String(200), nullable=False)
     blacklist_threshold = db.Column(db.Integer)
     max_size = db.Column(db.Integer)
-    users = db.relationship('Useringroup', backref='grp', lazy=True)
-    userblacklistvotes =  db.relationship('Usermovieblacklistvote', backref='grp', lazy=True)
+    users = db.relationship('Useringroup', backref='grp', lazy=True, cascade="all,delete")
+    userblacklistvotes =  db.relationship('Usermovieblacklistvote', backref='grp', lazy=True, cascade="all,delete")
 
     #def __init__(self,groupID,name,blacklist_threshold,max_size):
     def __init__(self,name,blacklist_threshold,max_size):
@@ -103,9 +103,9 @@ class Movie(db.Model):
     imdb_rating = db.Column(db.Float)
     photo = db.Column(db.String(500))
     imdb_link = db.Column(db.String(500))
-    moviesRated = db.relationship('Userratesmovie', backref='movie', lazy=True)
+    moviesRated = db.relationship('Userratesmovie', backref='movie', lazy=True, cascade="all,delete")
     actors = db.relationship('Actorinmovie', backref='movie', lazy=True)
-    userblacklistvotes = db.relationship('Usermovieblacklistvote', backref='movie', lazy=True)
+    userblacklistvotes = db.relationship('Usermovieblacklistvote', backref='movie', lazy=True, cascade="all,delete")
 
     def __init__(self,movieID,name,year,director,genre,imdb_rating,photo,imdb_link):
         self.movieID = movieID
