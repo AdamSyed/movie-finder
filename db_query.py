@@ -11,7 +11,7 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 
 #mycursor.execute("select * from userratesmovie where userID=2;")
-mycursor.execute("select * from usermovieblacklistvote;")
+mycursor.execute("select * from useringroup;")
 
 #mycursor.execute("select * from user;")
 #mycursor.execute("select * from useringroup where userID=13;")
