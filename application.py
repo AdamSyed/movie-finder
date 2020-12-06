@@ -192,7 +192,7 @@ ActorInMovies_schema = ActorInMovieSchema(many=True)
 # UserMovieBlacklistVote Class
 class Usermovieblacklistvote(db.Model):
     movieID = db.Column (db.Integer, db.ForeignKey(Movie.movieID),primary_key=True)
-    userID = db.Column (db.Integer, db.ForeignKey(User.userID, ondelete='CASCADE'),primary_key=True)
+    userID = db.Column (db.Integer, db.ForeignKey(User.userID),primary_key=True)
     groupID = db.Column (db.Integer, db.ForeignKey(Grp.groupID),primary_key=True)
     blacklist_vote = db.Column (db.Boolean)
     
@@ -591,7 +591,8 @@ def leave_group():
     groupID = request.json['groupID']
 
     #Remove user from group
-    RemoveGroup = Useringroup.query.filter_by(groupID = groupID, userID = userID).delete()
+    RemoveGroup = Useringroup.query.filter_by(groupID = groupID, userID = userID).first()
+    db.session.delete(RemoveGroup)
     db.session.commit()
     
     return({'response':'You have successfully removed the group'})
