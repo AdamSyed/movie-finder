@@ -449,6 +449,29 @@ def new_group():
     
     return({'response':'Good'})
 
+#ENDPOINT - Join new group
+@application.route('/join-group', methods = ['POST'])
+def join_group():
+    userID = request.json['id']
+    groupID = request.json['group_ID']
+    
+    test = Grp.query.filter_by(groupID=groupID).first()
+    print(test)  
+    if test is None:
+        return({'response': 'Group does not exist'})
+
+    #implement try-catch
+    try:
+        #Add user to specified group
+        addToGroup = Useringroup(groupID,userID, None, None)
+        db.session.add(addToGroup)
+        db.session.commit()
+    except:
+        return({'response':'User already in group'})
+        #return({'response':'Invalid Parameters'})
+    
+    return({'response':'User successfully added to group'})
+
 # ENDPOINT - Group Home Page
 @application.route('/group-info', methods = ['POST'])
 def thisGroup():
@@ -535,11 +558,29 @@ def group_results():
         out.append(Movie.query.filter_by(movieID = j).first().name)
         out.append(Movie.query.filter_by(movieID = j).first().movieID)
         out.append(Movie.query.filter_by(movieID = j).first().genre)
+    
+    while len(out) < 9:
+        out.append('N/A')
 
     print(out)
-    recommendations = {'top_name': out[0], 'top_id': out[1], 'top_genre': out[2],'second_name': out[3], 'second_id': out[4], 'second_genre': out[5],'third_name': out[6],'third_id': out[7],'third_genre': out[8],}
+    recommendations = {'top_name': out[0], 'top_id': out[1], 'top_genre': out[2],'second_name': out[3], 'second_id': out[4], 'second_genre': out[5],'third_name': out[6],'third_id': out[7],'third_genre': out[8]}
 
     return (recommendations)
+
+#ENDPOINT - Create new Watched Movie
+@application.route('/group-watched', methods = ['PUT'])
+def watched_Movie():
+    groupID = request.json['groupID']
+    movieID = request.json['movieID']
+    userID = request.json['id']
+    blacklist_vote = True
+
+    watchedMovie=Usermovieblacklistvote(movieID,userID,groupID,blacklist_vote)
+
+    db.session.add( watchedMovie)
+    db.session.commit()
+    
+    return({'response':'Good'})
 
 # Run server
 if __name__ == '__main__':
