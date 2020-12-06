@@ -558,9 +558,12 @@ def group_results():
         out.append(Movie.query.filter_by(movieID = j).first().name)
         out.append(Movie.query.filter_by(movieID = j).first().movieID)
         out.append(Movie.query.filter_by(movieID = j).first().genre)
+    
+    while len(out) < 9:
+        out.append('N/A')
 
     print(out)
-    recommendations = {'top_name': out[0], 'top_id': out[1], 'top_genre': out[2],'second_name': out[3], 'second_id': out[4], 'second_genre': out[5],'third_name': out[6],'third_id': out[7],'third_genre': out[8],}
+    recommendations = {'top_name': out[0], 'top_id': out[1], 'top_genre': out[2],'second_name': out[3], 'second_id': out[4], 'second_genre': out[5],'third_name': out[6],'third_id': out[7],'third_genre': out[8]}
 
     return (recommendations)
 

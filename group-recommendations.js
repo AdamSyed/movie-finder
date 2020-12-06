@@ -1,7 +1,7 @@
 const API_URL = 'https://cors-anywhere.herokuapp.com/http://moviefinder.us-east-1.elasticbeanstalk.com/';
 
 //Array that will house the inserted movieIDs
-let movies = [7, 8,9]
+var movies = [7, 8,9]
 
 async function groupMovies() {
     //this function will return the movie
@@ -23,19 +23,11 @@ async function groupMovies() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({id: vars.id,groupID: vars.groupID})
+        body: JSON.stringify({id: vars.id,groupID: vars.groupId})
     });
 
     const jsonFile = await response.json();
 
-    jsonFile = {
-        "top_name": "My Marks",
-        "top_genre": "Tragedy",
-        "second_name": "Murder on the Orient Express",
-        "second_genre": "Mystery",
-        "third_name": "Inception",
-        "third_genre": "Action",
-    };
 
 	console.log(jsonFile);
 
@@ -97,17 +89,17 @@ async function setWatched(movieIndex) {
         vars[key] = value;
     });
     currentID = vars.id;
-    const api_endpoint = 'my-groups';
+    const api_endpoint = 'group-watched';
 
     const response = await fetch(API_URL.concat(api_endpoint), {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id: vars.id, movieID: movies[movieIndex], groupID: vars.groupID })
+        body: JSON.stringify({ id: vars.id, movieID: movies[movieIndex], groupID: vars.groupId })
     });
     //Alert for testing
     //window.alert(movies[movieIndex]);
     const json = await response.json();
-    window.location.replace("http://findusamovie.s3-website-us-east-1.amazonaws.com/group-results.html?Id=" + vars.id + "&groupID" + vars.groupID)
+    window.location.replace("http://findusamovie.s3-website-us-east-1.amazonaws.com/group-results.html?id=" + vars.id + "&groupId=" + vars.groupId);
 }
